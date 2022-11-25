@@ -403,6 +403,11 @@ public class ME : MonoBehaviour
 				GameData.minPosX = -8.5f;
 				GameData.maxPosY = 4.5f;
 				GameData.minPosY = -4.5f;
+				GameData.closeHint = true;
+				hintName = "";
+				thingsToDo.text = "到座位上準備考試吧";
+				GameData.PlayerPos = new Vector3(-6.5f, 3.5f, 0);
+				GameData.openMeMove = false;
 				break;
 			default:
 				GameData.closeHint = true;
