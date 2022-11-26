@@ -199,8 +199,8 @@ public class Plot_one : MonoBehaviour
 
 	float wordGap_X = 0.5f;
 	float wordGap_Y = -2f;
-	float wordTick = 0.17f;             // 字出現時間
-	float wordTickNum = 0.17f;          // 字延遲時間
+	float wordTick = 0.1f;             // 字出現時間
+	float wordTickNum = 0.1f;          // 字延遲時間
 	int queueCount = 0;                 // 物件佇列位置
 	bool openDialog = true;             // 開啟對話
 	int dialogCount = 0;                // 第幾個對話
