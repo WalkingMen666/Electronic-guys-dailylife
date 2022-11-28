@@ -13,15 +13,15 @@ public class SwitchScenesTo1GameStart : MonoBehaviour
 	public GameObject gameMode;
 	public int choice = 1;
 	int Press = 0;
-	AsyncOperation async_classRoom;
-	AsyncOperation async_ResCalculator;
+	// AsyncOperation async_classRoom;
+	// AsyncOperation async_ResCalculator;
 
 	void Start()
 	{
-		async_classRoom = SceneManager.LoadSceneAsync(1);
-		async_classRoom.allowSceneActivation = false;
-		async_ResCalculator = SceneManager.LoadSceneAsync(8);
-		async_ResCalculator.allowSceneActivation = false;
+		// async_classRoom = SceneManager.LoadSceneAsync(1);
+		// async_classRoom.allowSceneActivation = false;
+		// async_ResCalculator = SceneManager.LoadSceneAsync(8);
+		// async_ResCalculator.allowSceneActivation = false;
 		GameObject.Find("我").transform.position = new Vector3(-3.0f, 0.5f, 0);
 		chooseSound = GetComponent<AudioSource>();
 		openAudio = GameObject.Find("開啟音效").GetComponent<AudioSource>();
@@ -115,10 +115,12 @@ public class SwitchScenesTo1GameStart : MonoBehaviour
 	}
 	public void sceneToClassroom()
 	{
-		async_classRoom.allowSceneActivation = true;
+		// async_classRoom.allowSceneActivation = true;
+		SceneManager.LoadScene(1);
 	}
 	public void sceneToResMode()
 	{
-		async_ResCalculator.allowSceneActivation = true;
+		// async_ResCalculator.allowSceneActivation = true;
+		SceneManager.LoadScene(9);
 	}
 }

@@ -210,12 +210,12 @@ public class Plot_one : MonoBehaviour
 	Vector3 startPos = new Vector3(-6.5f, 3, 0);
 	List<GameObject> showQueue = new List<GameObject>();    // 對話物件list
 	List<string> dialogQueue = new List<string>();          // 對話文字list
-	AsyncOperation async;				// 預先載入場景
+	// AsyncOperation async;				// 預先載入場景
 
 	void Start()
 	{
-		async = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-		async.allowSceneActivation = false;
+		// async = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+		// async.allowSceneActivation = false;
 		GameData.openMeMove = false;
 		GetDialogText(dialogFile);
 		changewords();
@@ -243,7 +243,7 @@ public class Plot_one : MonoBehaviour
 				{
 					openDialog = false;
 					wait();
-					if(Input.GetKeyDown(KeyCode.Space)) async.allowSceneActivation = true;
+					if(Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 					return;
 				}
 				else changewords();
