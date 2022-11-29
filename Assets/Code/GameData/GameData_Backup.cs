@@ -2,9 +2,10 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-static class GameData
+
+public class GameData_Backup : MonoBehaviour
 {
-	///移動鏡頭最大X值
+    ///移動鏡頭最大X值
 	public static float maxPosX = 8.5f;
 	///移動鏡頭最小X值
 	public static float minPosX = -10.5f;
@@ -54,33 +55,4 @@ static class GameData
 	public static bool Plot2_CloseDialog = false;
 	///劇情六角色全部完成移動
 	public static int allDone_PlotSix = 0;
-	
-	public static void reset()
-	{
-		maxPosX = GameData_Backup.maxPosX;
-		minPosX = GameData_Backup.minPosX;
-		maxPosY = GameData_Backup.maxPosY;
-		minPosY = GameData_Backup.minPosY;
-		notTouching = GameData_Backup.notTouching;
-		textTouching = GameData_Backup.textTouching;
-		textPlayerPos = GameData_Backup.textPlayerPos;
-		textTouchName = GameData_Backup.textTouchName;
-		PlayerPos = GameData_Backup.PlayerPos;
-		resAnswer = GameData_Backup.resAnswer;
-		tipWords = GameData_Backup.tipWords;
-		resLevel = GameData_Backup.resLevel;
-		resSum = GameData_Backup.resSum;
-		oResLimit = GameData_Backup.oResLimit;
-		finishAllQue = GameData_Backup.finishAllQue;
-		hintPos = GameData_Backup.hintPos;
-		closeHint = GameData_Backup.closeHint;
-		openMeMove = GameData_Backup.openMeMove;
-		allDone = GameData_Backup.allDone;
-		countCharacter = GameData_Backup.countCharacter;
-		waitTeacher = GameData_Backup.waitTeacher;
-		exitClassroom = GameData_Backup.exitClassroom;
-		Plot2_CloseDialog = GameData_Backup.Plot2_CloseDialog;
-		allDone_PlotSix = GameData_Backup.allDone_PlotSix;
-	}
-
 }

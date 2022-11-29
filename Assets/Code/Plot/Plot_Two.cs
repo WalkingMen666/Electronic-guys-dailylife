@@ -75,18 +75,21 @@ public class Plot_Two : MonoBehaviour
 	
 	void Start()
 	{
-		GameData.openMeMove = false;
-		GetDialogText(dialogFile);
-		changewords();
-		timer = 0;
-		isActive = false;
-		charsPerSecond = Mathf.Max(0.1f, charsPerSecond);
-		dialogBoxText.text = "";
+		if(!GameData.exitClassroom)
+		{
+			GameData.openMeMove = false;
+			GetDialogText(dialogFile);
+			changewords();
+			timer = 0;
+			isActive = false;
+			charsPerSecond = Mathf.Max(0.1f, charsPerSecond);
+			dialogBoxText.text = "";	
+		}
 	}
 	
 	void Update()
 	{
-		if(!GameData.openMeMove) // 主角可以移動後就停止執行此程式
+		if(!GameData.openMeMove &&　!GameData.exitClassroom) // 主角可以移動後就停止執行此程式
 		{
 			if(dialogCount == endDialog + 1) GameData.openMeMove = true;
 			if(Time.time >= wordTick && openDialog)
