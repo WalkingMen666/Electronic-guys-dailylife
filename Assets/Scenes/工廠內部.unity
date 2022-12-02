@@ -10355,11 +10355,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3988121463338175489, guid: 63996d1352892cd4eba38705f40210fa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -4.5
+      value: -4.562
       objectReference: {fileID: 0}
     - target: {fileID: 3988121463338175489, guid: 63996d1352892cd4eba38705f40210fa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.5
+      value: 1.523
       objectReference: {fileID: 0}
     - target: {fileID: 3988121463338175489, guid: 63996d1352892cd4eba38705f40210fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -12780,12 +12780,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b73c7a25375d7444a92bf3465684eb16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomActive: 0
   Target:
   - {x: 0, y: 0, z: -100}
-  - {x: -4.5, y: 1.5, z: -100}
+  - {x: -4.5, y: 2, z: -100}
   cam: {fileID: 0}
-  speed: 0.04
+  speed: 0.035
 --- !u!1 &1631477580 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 523042743, guid: 3f444b195598f4241845a5395ddfa49d, type: 3}
@@ -16624,6 +16623,10 @@ PrefabInstance:
     - target: {fileID: 7611934460391932587, guid: c5711b896f9a983458728b58adebb62e, type: 3}
       propertyPath: m_Name
       value: "\u793A"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611934460391932587, guid: c5711b896f9a983458728b58adebb62e, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7844155203901799603, guid: c5711b896f9a983458728b58adebb62e, type: 3}
       propertyPath: m_SortingLayer

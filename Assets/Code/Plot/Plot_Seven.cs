@@ -149,6 +149,7 @@ public class Plot_Seven : MonoBehaviour
 		showText = "";
 		hint.SetActive(false);
 		dialogBox.SetActive(false);
+		Invoke("zoomin", 0.5f);
 	}
 	void wait()
 	{
@@ -168,5 +169,9 @@ public class Plot_Seven : MonoBehaviour
 		}
 		else finishTeacherMove = true;
 		GameObject.Find("師").transform.localPosition = Pos;
+	}
+	void zoomin()
+	{
+		ZoomIn.zoomActive = true;
 	}
 }

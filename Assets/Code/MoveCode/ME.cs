@@ -562,9 +562,12 @@ public class ME : MonoBehaviour
 				showText = "...這裡甚麼都沒有";
 				break;
 		}
-		isActive = true;
-		dialogBox.SetActive(true);
-		OnStartWriter();
+		if(GameData.textTouchName != "Untagged")
+		{
+			isActive = true;
+			dialogBox.SetActive(true);
+			OnStartWriter();	
+		}
 	}
 	void OnStartWriter()
 	{
