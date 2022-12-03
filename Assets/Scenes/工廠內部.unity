@@ -9599,6 +9599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogFile: {fileID: 4900000, guid: c931facb6c9598240b509981274bd094, type: 3}
+  dialogFile2: {fileID: 4900000, guid: cea131d98073c1446bcc6aa1de29deaa, type: 3}
   hint: {fileID: 1631477580}
   dialogBox: {fileID: 1955431720}
   dialogBoxText: {fileID: 361201773}

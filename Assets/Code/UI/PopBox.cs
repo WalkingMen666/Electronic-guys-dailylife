@@ -10,26 +10,31 @@ public class PopBox : MonoBehaviour
 	int Press = 0;
 	public GameObject gameObject;
 	Coroutine c = null;
+	public static bool illustrateIsOpen = false;	// 麵包板的說明
+	public static bool sysBoardIsOpen = false;		// 麵包板的系統提示
 
 	void Start()
 	{
 		openAudio = GameObject.Find("開啟音效").GetComponent<AudioSource>();
-		closeAudio = GameObject.Find("關閉音效").GetComponent<AudioSource>();
+		closeAudio = GameObject.Find("關閉音效").GetComponent<AudioSource>();	
 	}
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().buildIndex != 0)
+		if(SceneManager.GetActiveScene().buildIndex != 9)
 		{
-			if (Press == 0)
+			if (!illustrateIsOpen && !sysBoardIsOpen && Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().buildIndex != 0)
 			{
-				showPop(gameObject);
-				Press = 1;
-			}
-			else
-			{
-				hidePop(gameObject);
-				Press = 0;
-			}
+				if (Press == 0)
+				{
+					showPop(gameObject);
+					Press = 1;
+				}
+				else
+				{
+					hidePop(gameObject);
+					Press = 0;
+				}
+			}	
 		}
 	}
 

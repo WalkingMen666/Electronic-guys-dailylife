@@ -7,6 +7,7 @@ public class Plot_Seven : MonoBehaviour
 {
 	[Header("劇情")]
 	public TextAsset dialogFile;			// 劇情檔案
+	public TextAsset dialogFile2;			// 劇情檔案2
 	public GameObject hint;					// 提示物件(按下Space繼續)
 	public static bool openMeDialog = false;// 開啟"我"的自白
 	public static bool finishJump = false;	// 完成跳躍特效
@@ -31,6 +32,7 @@ public class Plot_Seven : MonoBehaviour
 	Vector3 teacherChangePos = new Vector3(-6.5f, 4, 0);
 	bool finishTeacherMove = false;
 	float moveTick = 0.3f;
+	bool finishAllDialog = false;	// 完成所有劇情
 	
 	void Start()
 	{
@@ -38,11 +40,16 @@ public class Plot_Seven : MonoBehaviour
 		dialogBoxText.text = "";
 		timer = 0;
 		GameData.openMeMove = false;
-		GetDialogText(dialogFile);
+		GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Stop();
+		if(!GameData.finishAllQue) GetDialogText(dialogFile);
+		else
+		{
+			GetDialogText(dialogFile2);
+			GameObject.Find("我").transform.localPosition = new Vector3(-4.5f, 1, 0);
+		}
 		changeDialog();
 		dialogBox.SetActive(true);
 		isActive = true;
-		GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Stop();
 	}
 	void Update()
 	{
@@ -50,26 +57,55 @@ public class Plot_Seven : MonoBehaviour
 		{
 			if(Input.GetKeyDown(KeyCode.Space))
 			{
-				if(!finishFirstPlot && currentDialog == 1)
+				if(!GameData.finishAllQue)
 				{
-					hint.SetActive(false);
-					dialogBox.SetActive(false);
-					isActive = false;
-					GameData.openMeMove = true;
-					finishFirstPlot = true;
-					GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Play();
+					if(!finishFirstPlot && currentDialog == 1)
+					{
+						hint.SetActive(false);
+						dialogBox.SetActive(false);
+						isActive = false;
+						GameData.openMeMove = true;
+						finishFirstPlot = true;
+						GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Play();
+					}
+					else if(currentDialog != endDialog)
+					{
+						dialogBoxText.text = "";
+						currentPos = 0;
+						timer = 0;
+						changeDialog();
+						isActive = true;
+						hint.SetActive(false);
+						OnStartWriter();
+					}
+					else OnFinish();
 				}
-				else if(currentDialog != endDialog)
+				else
 				{
-					dialogBoxText.text = "";
-					currentPos = 0;
-					timer = 0;
-					changeDialog();
-					isActive = true;
-					hint.SetActive(false);
-					OnStartWriter();
+					if(currentDialog != endDialog)
+					{
+						dialogBoxText.text = "";
+						currentPos = 0;
+						timer = 0;
+						changeDialog();
+						isActive = true;
+						hint.SetActive(false);
+						OnStartWriter();
+					}
+					else
+					{
+						//亂動
+						print("Done");
+						isActive = false;
+						finishAllDialog = true;
+						wait();
+					}
+					if(finishAllDialog)
+					{
+						hint.SetActive(false);
+						dialogBox.SetActive(false);
+					}
 				}
-				else OnFinish();
 			}
 		}
 		else OnStartWriter();

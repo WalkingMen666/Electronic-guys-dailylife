@@ -9,7 +9,6 @@ public class ResPopBox : MonoBehaviour
     protected AudioSource closeAudio;
     int Press = 0;
     public GameObject g;
-    //public 
     Coroutine c = null;
 
     void Start()

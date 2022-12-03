@@ -24,18 +24,6 @@ static class GameData
 	public static Vector3 PlayerPos = new Vector3(1, -1.5f, 0);
 	///音量調整
 	public static float gameVolume = 0.5f;
-	///電阻關卡答案
-	public static List<double> resAnswer = new List<double>();
-	///電阻提示
-	public static List<string> tipWords = new List<string>();
-	///電阻關卡順序
-	public static int resLevel = 1;
-	///電阻限用數量
-	public static int resSum = 0;
-	///啟用電阻限用
-	public static bool oResLimit = false;
-	///電阻區完成所有題目
-	public static bool finishAllQue = false;
 	///場景提示物件位置
 	public static Vector3 hintPos;
 	/// 開關提示
@@ -54,6 +42,12 @@ static class GameData
 	public static bool Plot2_CloseDialog = false;
 	///劇情六角色全部完成移動
 	public static int allDone_PlotSix = 0;
+	/// 電阻關卡編號
+	public static int resLevel = 1;
+	/// 電阻限用數量
+	public static string resLimit;
+	/// 完成所有電阻題目
+	public static bool finishAllQue = true;
 	
 	public static void reset()
 	{
@@ -66,12 +60,6 @@ static class GameData
 		textPlayerPos = GameData_Backup.textPlayerPos;
 		textTouchName = GameData_Backup.textTouchName;
 		PlayerPos = GameData_Backup.PlayerPos;
-		resAnswer = GameData_Backup.resAnswer;
-		tipWords = GameData_Backup.tipWords;
-		resLevel = GameData_Backup.resLevel;
-		resSum = GameData_Backup.resSum;
-		oResLimit = GameData_Backup.oResLimit;
-		finishAllQue = GameData_Backup.finishAllQue;
 		hintPos = GameData_Backup.hintPos;
 		closeHint = GameData_Backup.closeHint;
 		openMeMove = GameData_Backup.openMeMove;
@@ -81,6 +69,9 @@ static class GameData
 		exitClassroom = GameData_Backup.exitClassroom;
 		Plot2_CloseDialog = GameData_Backup.Plot2_CloseDialog;
 		allDone_PlotSix = GameData_Backup.allDone_PlotSix;
+		resLimit = GameData_Backup.resLimit;
+		resLevel = GameData_Backup.resLevel;
+		finishAllQue = GameData_Backup.finishAllQue;
 	}
 
 }
