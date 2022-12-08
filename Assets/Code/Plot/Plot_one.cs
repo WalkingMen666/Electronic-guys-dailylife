@@ -197,28 +197,28 @@ public class Plot_one : MonoBehaviour
 	public GameObject a184;  //講
 	public GameObject a185;  //桌
 
-	float wordGap_X = 0.5f;
-	float wordGap_Y = -2f;
-	float wordTick = 0.1f;             // 字出現時間
-	float wordTickNum = 0.1f;          // 字延遲時間
+	float wordGap_X = 0.5f;				// X軸間隔
+	float wordGap_Y = -2f;				// Y軸間隔
+	float wordTick = 0.1f;             	// 字出現時間
+	float wordTickNum = 0.1f;          	// 字延遲時間
 	int queueCount = 0;                 // 物件佇列位置
 	bool openDialog = true;             // 開啟對話
 	int dialogCount = 0;                // 第幾個對話
 	int endDialog;                      // 結束對話編號
 	string pSpace = "/p";               // 按下空白鍵繼續
 	bool pGoDown = true;                // 偵測到/p
+	AsyncOperation async;				// 轉換場景
 	Vector3 startPos = new Vector3(-6.5f, 3, 0);
 	List<GameObject> showQueue = new List<GameObject>();    // 對話物件list
 	List<string> dialogQueue = new List<string>();          // 對話文字list
-	// AsyncOperation async;				// 預先載入場景
 
 	void Start()
 	{
-		// async = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-		// async.allowSceneActivation = false;
 		GameData.openMeMove = false;
 		GetDialogText(dialogFile);
 		changewords();
+		async = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+		async.allowSceneActivation = false;
 	}
 
 	void Update()
@@ -243,7 +243,7 @@ public class Plot_one : MonoBehaviour
 				{
 					openDialog = false;
 					wait();
-					if(Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+					if(Input.GetKeyDown(KeyCode.Space)) async.allowSceneActivation = true;
 					return;
 				}
 				else changewords();
@@ -848,6 +848,8 @@ public class Plot_one : MonoBehaviour
 		if(openDialog)
 		{
 			GameObject clone = Instantiate(showQueue[showQueue.Count - queueCount], startPos, Quaternion.Euler(0, 0, 0));
+			if(showQueue[showQueue.Count - queueCount] == a5) wordTickNum = 0.3f;
+			else wordTickNum = 0.1f;
 			clone.tag = "clone";
 			startPos.x += wordGap_X;
 			queueCount--;
@@ -859,7 +861,7 @@ public class Plot_one : MonoBehaviour
 				openDialog = false;
 				startPos.y = 3f;
 				startPos.x = -6.5f;
-				Invoke("wait",0.5f);
+				wait();
 			}
 			else
 			{

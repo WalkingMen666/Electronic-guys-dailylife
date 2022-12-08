@@ -48,6 +48,8 @@ static class GameData
 	public static string resLimit;
 	/// 完成所有電阻題目
 	public static bool finishAllQue = true;
+	/// 工廠最後老師說完話
+	public static bool teacherFinishDialog = false;
 	
 	public static void reset()
 	{
@@ -72,6 +74,7 @@ static class GameData
 		resLimit = GameData_Backup.resLimit;
 		resLevel = GameData_Backup.resLevel;
 		finishAllQue = GameData_Backup.finishAllQue;
+		teacherFinishDialog = GameData_Backup.teacherFinishDialog;
 	}
 
 }

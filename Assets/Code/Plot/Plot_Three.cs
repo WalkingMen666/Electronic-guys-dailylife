@@ -108,6 +108,8 @@ public class Plot_Three : MonoBehaviour
 			{   //判斷計時器時間是否到達
 				timer = 0;
 				currentPos++;
+				if(showText[currentPos - 1] == '，') charsPerSecond = 0.5f;
+				else charsPerSecond = 0.1f;
 				dialogBoxText.text = showText.Substring(0, currentPos);//刷新文本顯示內容
 				if (currentPos >= showText.Length)
 				{

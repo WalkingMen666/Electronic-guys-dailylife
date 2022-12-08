@@ -6,19 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Plot_Four : MonoBehaviour
 {
-	public static bool openFade;
-	CanvasGroup canvasGroup;
-	public SceneFader sceneFader;
-	
-	public float fadeInTime;
-	public float fadeOutTime;
 	public static AsyncOperation async;
-	
-	void Awake() 
-	{
-		canvasGroup = GetComponent<CanvasGroup>();
-		openFade = false;
-	}
 	
 	void Start()
 	{

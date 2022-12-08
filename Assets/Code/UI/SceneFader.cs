@@ -14,14 +14,6 @@ public class SceneFader : MonoBehaviour
 	void Awake() 
 	{
 		canvasGroup = GetComponent<CanvasGroup>();
-		// DontDestroyOnLoad(gameObject);
-	}
-	
-	public IEnumerator FadeOutIn(float time)
-	{
-		yield return FadeOut(time);
-		yield return FadeIn(time);
-		yield return Plot_Four.async.allowSceneActivation = true;
 	}
 	
 	public IEnumerator FadeOut(float time)
@@ -35,6 +27,7 @@ public class SceneFader : MonoBehaviour
 	
 	public IEnumerator FadeIn(float time)
 	{
+		canvasGroup.alpha = 1;
 		while(canvasGroup.alpha != 0)
 		{
 			canvasGroup.alpha -= Time.deltaTime / time;

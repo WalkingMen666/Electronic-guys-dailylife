@@ -47,6 +47,8 @@ public class Plot_Two : MonoBehaviour
 	public GameObject a34;  //遲
 	public GameObject a35;  //到
 	public GameObject a36;  //!
+	public GameObject a37;  //師
+	public GameObject a38;  //：
 	
 	float wordGap_X = 0.5f;
 	float wordGap_Y = -0.5f;
@@ -152,6 +154,8 @@ public class Plot_Two : MonoBehaviour
 			{   //判斷計時器時間是否到達
 				timer = 0;
 				currentPos++;
+				if(showText[currentPos - 1] == '，') charsPerSecond = 0.5f;
+				else charsPerSecond = 0.1f;
 				dialogBoxText.text = showText.Substring(0, currentPos);//刷新文本顯示內容
 				if (currentPos >= showText.Length)
 				{
@@ -299,6 +303,12 @@ public class Plot_Two : MonoBehaviour
 				case '!':
 					showQueue.Add(a36);
 					break;
+				case '師':
+					showQueue.Add(a37);
+					break;
+				case '：':
+					showQueue.Add(a38);
+					break;
 			}
 		}
 		queueCount = showQueue.Count;
@@ -320,6 +330,8 @@ public class Plot_Two : MonoBehaviour
 		{
 			GameObject clone = Instantiate(showQueue[showQueue.Count - queueCount], startPos, Quaternion.Euler(0, 0, 0));
 			clone.tag = "clone";
+			if(showQueue[showQueue.Count - queueCount] == a9) wordTickNum = 0.3f;
+			else wordTickNum = 0.1f;
 			startPos.x += wordGap_X;
 			queueCount--;
 		}

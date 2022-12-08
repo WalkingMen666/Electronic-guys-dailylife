@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Plot_Seven : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Plot_Seven : MonoBehaviour
 	public GameObject hint;					// 提示物件(按下Space繼續)
 	public static bool openMeDialog = false;// 開啟"我"的自白
 	public static bool finishJump = false;	// 完成跳躍特效
+	AsyncOperation async;
 	
 	[Header("打字機")]
 	public GameObject dialogBox;	// 對話框(透明圖片背景)
@@ -24,15 +26,15 @@ public class Plot_Seven : MonoBehaviour
 	int endDialog = 0;				// 結束劇情編號
 	List<string> dialogQueue = new List<string>();	// 劇情文字佇列
 	
-	bool finishFirstPlot = false;
-	bool finishMeMove = false;
-	Vector3 targetPos = new Vector3(-4.5f, 1f, 0);
-	Vector3 teacherMoveDis = new Vector3(0.5f, 0, 0);
-	Vector3 teacherTargetPos = new Vector3(0.5f, 3.5f, 0);
-	Vector3 teacherChangePos = new Vector3(-6.5f, 4, 0);
-	bool finishTeacherMove = false;
-	float moveTick = 0.3f;
-	bool finishAllDialog = false;	// 完成所有劇情
+	bool finishFirstPlot = false;	// 完成第一段劇情
+	bool finishMeMove = false;		// 完成"我"移動
+	bool finishTeacherMove = false;	// 完成老師移動
+	float moveTick = 0.3f;			// 移動時間間隔
+	public SceneFader sceneFader;	// 場景淡出
+	Vector3 targetPos = new Vector3(-4.5f, 1f, 0);			// "我"目標位置
+	Vector3 teacherMoveDis = new Vector3(0.5f, 0, 0);		// 老師移動距離
+	Vector3 teacherTargetPos = new Vector3(0.5f, 3.5f, 0);	// "師"目標位置
+	Vector3 teacherChangePos = new Vector3(-6.5f, 4, 0);	// "師"轉換Y軸位置
 	
 	void Start()
 	{
@@ -50,6 +52,8 @@ public class Plot_Seven : MonoBehaviour
 		changeDialog();
 		dialogBox.SetActive(true);
 		isActive = true;
+		async = SceneManager.LoadSceneAsync(10);
+		async.allowSceneActivation = false;
 	}
 	void Update()
 	{
@@ -94,16 +98,11 @@ public class Plot_Seven : MonoBehaviour
 					}
 					else
 					{
-						//亂動
-						print("Done");
 						isActive = false;
-						finishAllDialog = true;
-						wait();
-					}
-					if(finishAllDialog)
-					{
 						hint.SetActive(false);
 						dialogBox.SetActive(false);
+						GameData.teacherFinishDialog = true;
+						StartCoroutine(fadeTest(""));
 					}
 				}
 			}
@@ -130,6 +129,13 @@ public class Plot_Seven : MonoBehaviour
 			changeDialog();
 			OnStartWriter();
 		}
+	}
+	public IEnumerator fadeTest(string s)
+	{	
+		SceneFader fade = Instantiate(sceneFader);
+		yield return StartCoroutine(fade.FadeOut(2.5f));
+		yield return async.allowSceneActivation = true;
+		yield return null;
 	}
 	void GetDialogText(TextAsset file)
 	{
@@ -162,10 +168,7 @@ public class Plot_Seven : MonoBehaviour
 			{   //判斷計時器時間是否到達
 				timer = 0;
 				currentPos++;
-				if(showText[currentPos - 1] == '，')
-				{
-					charsPerSecond = 0.5f;
-				}
+				if(showText[currentPos - 1] == '，') charsPerSecond = 0.5f;
 				else charsPerSecond = 0.1f;
 				dialogBoxText.text = showText.Substring(0, currentPos);//刷新文本顯示內容
 				if (currentPos >= showText.Length)

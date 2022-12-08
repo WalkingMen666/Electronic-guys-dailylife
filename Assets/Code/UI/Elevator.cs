@@ -17,12 +17,9 @@ public class Elevator : MonoBehaviour
 	float doorTimeTick = 0.5f;
 	AudioSource dingSound;
 	[Header("淡出特效")]
-	// public Image image;		// 轉場圖片
-	float fadeTime = 1.5f;	// 轉場時間
-	Color color;			// 轉場圖片顏色
+	float fadeTime = 1.5f;		// 轉場時間
+	Color color;				// 轉場圖片顏色
 	public SceneFader sceneFader;
-	CanvasGroup canvasGroup;
-	// AsyncOperation async;
 	
 	void Start()
 	{

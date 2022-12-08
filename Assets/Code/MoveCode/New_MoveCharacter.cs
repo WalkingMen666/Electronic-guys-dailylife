@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class New_MoveCharacter : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class New_MoveCharacter : MonoBehaviour
 	
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if(!done && (other.tag == "桌" || other.tag == "椅" || other.tag == "講"))
+		if(!done && (other.tag == "桌" || other.tag == "椅" || other.tag == "講" || other.tag == "示" || other.tag == "訊" || other.tag == "源" || other.tag == "櫃" || other.tag == "滅" || other.tag == "緊"))
 		{
 			touch = true;
 			pointTo = !pointTo; // 先反向一次
@@ -162,44 +163,47 @@ public class New_MoveCharacter : MonoBehaviour
 	
 	void changePos() // 決定最終位置
 	{
-		switch(characterName)
+		if(SceneManager.GetActiveScene().buildIndex != 8)
 		{
-			case "童":
-				targetPos = new Vector3(-8f, -3.5f, 0);
-				break;
-			case "摯":
-				targetPos = new Vector3(-8f, -4f, 0);
-				break;
-			case "矮":
-				targetPos = new Vector3(0f, -4f, 0);
-				break;
-			case "畢":
-				targetPos = new Vector3(0.5f, -4f, 0);
-				break;
-			case "彭":
-				targetPos = new Vector3(8f, 4.5f, 0);
-				break;
-			case "劉":
-				targetPos = new Vector3(-4.5f, -1.5f, 0);
-				break;
-			case "美":
-				targetPos = new Vector3(-8f, -3f, 0);
-				break;
-			case "臭":
-				targetPos = new Vector3(-8f, -2.5f, 0);
-				break;
-			case "學1":
-				targetPos = new Vector3(-1f, 2f, 0);
-				break;
-			case "學2":
-				targetPos = new Vector3(-0.5f, 2f, 0);
-				break;
-			case "學3":
-				targetPos = new Vector3(-0.5f, -4, 0);
-				break;
-			default:
-				done = true;
-				break;
+			switch(characterName)
+			{
+				case "童":
+					targetPos = new Vector3(-8f, -3.5f, 0);
+					break;
+				case "摯":
+					targetPos = new Vector3(-8f, -4f, 0);
+					break;
+				case "矮":
+					targetPos = new Vector3(0f, -4f, 0);
+					break;
+				case "畢":
+					targetPos = new Vector3(0.5f, -4f, 0);
+					break;
+				case "彭":
+					targetPos = new Vector3(8f, 4.5f, 0);
+					break;
+				case "劉":
+					targetPos = new Vector3(-4.5f, -1.5f, 0);
+					break;
+				case "美":
+					targetPos = new Vector3(-8f, -3f, 0);
+					break;
+				case "臭":
+					targetPos = new Vector3(-8f, -2.5f, 0);
+					break;
+				case "學1":
+					targetPos = new Vector3(-1f, 2f, 0);
+					break;
+				case "學2":
+					targetPos = new Vector3(-0.5f, 2f, 0);
+					break;
+				case "學3":
+					targetPos = new Vector3(-0.5f, -4, 0);
+					break;
+				default:
+					done = true;
+					break;
+			}
 		}
 	}
 }

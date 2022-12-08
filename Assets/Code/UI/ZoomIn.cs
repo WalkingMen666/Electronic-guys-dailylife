@@ -21,7 +21,7 @@ public class ZoomIn : MonoBehaviour
 	{
 		if(zoomActive)
 		{
-			cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 0.001f, speed);
+			cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 0.0116f, speed);
 			cam.transform.position = Vector3.Lerp(cam.transform.position, Target[1], speed);
 		}
 		else
@@ -29,6 +29,6 @@ public class ZoomIn : MonoBehaviour
 			cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 5, speed);
 			cam.transform.position = Vector3.Lerp(cam.transform.position, Target[0], speed);
 		}
-		if(cam.orthographicSize <= 0.005) async.allowSceneActivation = true;
+		if(cam.orthographicSize <= 0.01176) async.allowSceneActivation = true;
 	}
 }

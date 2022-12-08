@@ -7298,6 +7298,8 @@ MonoBehaviour:
   a34: {fileID: 5676038838490707412, guid: 71211d8edf61c214983166d11732985d, type: 3}
   a35: {fileID: 7146656958452150950, guid: fb50d34441a329543898505fcd55a928, type: 3}
   a36: {fileID: 6229738188447126013, guid: 91b4625bfd60caf4f8a808b22a8fda28, type: 3}
+  a37: {fileID: 8091684889339579211, guid: 49c3eea86c248bd4c953a061f8227f5d, type: 3}
+  a38: {fileID: 0}
   dialogBox: {fileID: 77496571}
   dialogBoxText: {fileID: 77496569}
 --- !u!4 &1312737943
