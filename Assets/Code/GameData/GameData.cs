@@ -47,7 +47,7 @@ static class GameData
 	/// 電阻限用數量
 	public static string resLimit;
 	/// 完成所有電阻題目
-	public static bool finishAllQue = true;
+	public static bool finishAllQue = false;
 	/// 工廠最後老師說完話
 	public static bool teacherFinishDialog = false;
 	

@@ -13,7 +13,7 @@ public class New_MoveCharacter : MonoBehaviour
 	float dis_Y;				// 距離目標的X軸位置
 	float step_X;				// 移動的X軸距離
 	float step_Y;				// 移動的Y軸距離
-	float timeTick = 0.5f;		// 移動間隔時間
+	float timeTick = 0.3f;		// 移動間隔時間
 	bool done = false;			// 此物件完成移動
 	bool touch = false;			// 接觸到物件
 	bool moveLeft = false;		// 目標位置是否在初始位置的左方
@@ -54,14 +54,14 @@ public class New_MoveCharacter : MonoBehaviour
 		{
 			if(!waitOpenMove)
 			{
-				timeTick += (Time.time+0.5f);
+				timeTick += (Time.time+0.3f);
 				waitOpenMove = true;
 			}
 			if(!done && GameData.allDone != GameData.countCharacter && Time.time >= timeTick) // allDone的數量為所有需要移動的角色數量
 			{
 				origionalPos = this.gameObject.transform.localPosition;
 				changeDis();
-				timeTick = Time.time + 0.5f;
+				timeTick = Time.time + 0.3f;
 			}
 			if(GameData.allDone == GameData.countCharacter)
 			{
@@ -199,6 +199,9 @@ public class New_MoveCharacter : MonoBehaviour
 					break;
 				case "學3":
 					targetPos = new Vector3(-0.5f, -4, 0);
+					break;
+				case "師":
+					targetPos = new Vector3(-8, 5.5f, 0);
 					break;
 				default:
 					done = true;

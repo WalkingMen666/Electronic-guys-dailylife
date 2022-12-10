@@ -49,10 +49,15 @@ public class ME : MonoBehaviour
 		dialogBoxText.text = "";//獲取Text的文本信息，保存到words中，然後動態更新文本顯示內容，實現打字機的效果
 		changePlayerPos();
 		this.gameObject.transform.localPosition = GameData.PlayerPos;
+		if(GameData.exitClassroom) GameData.openMeMove = true;
 	}
 	void OnTriggerEnter2D(Collider2D other)  //colliderTrigger2D接觸判斷 要先將物件的觸發器打勾
 	{
-		if(other.tag == hintName) GameData.closeHint = true;
+		if(other.tag == hintName) 
+		{
+			GameData.closeHint = true;
+			if(SceneManager.GetActiveScene().buildIndex == 3) AddScenes.goToNextScene = true;
+		}
 		if (other.tag != "台" && other.tag != "門1" && other.tag != "垃" &&　other.tag != "蟲")
 		{
 			reset();

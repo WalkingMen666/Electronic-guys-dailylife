@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class Plot_Three : MonoBehaviour
 {
 	[Header("提示框")]
-	public GameObject hintBox;		// 我!圖案
 	public GameObject bestFriend;	// 摯
 	public GameObject hint;			// 提示物件(按下Space繼續)
 	
@@ -21,19 +20,23 @@ public class Plot_Three : MonoBehaviour
 	private int currentPos = 0; 	// 當前打字位置
 	bool afterDialog = false;		// 結束對話
 	
-	
 	bool friendMove = false;		// 開啟摯友移動
+	float moveWaitTime = 0.15f;		// 摯友移動間隔時間
+	float meJumpTimer ;				// 我的跳躍計時器
+	Vector3 meJumpPos;				// 我的原位置
+	bool openMeJump = false;		// 開啟我的跳躍
+	bool waitElevator;				// 等電梯
+	Vector3 meJumpSpeed = new Vector3(0, 0.01f, 0);		// 我的跳躍速度
 	Vector3 friendMoveSpeed = new Vector3(0, 0.5f, 0);	// 摯友移動速度
 	Vector3 firendTargetPos = new Vector3(3, -4.5f, 0);	// 摯友移動目標位置
-	float moveWaitTime = 0.3f;		// 摯友移動間隔時間
 	
 	void Start()
 	{
 		if(!GameData.Plot2_CloseDialog)
 		{
 			bestFriend.transform.localPosition = GameObject.Find("我").transform.localPosition - new Vector3(0.5f, 0, 0);
-			firendTargetPos.y = GameObject.Find("我").transform.localPosition.y + 9.5f;
-			hintBox.transform.position = GameObject.Find("我").transform.position + new Vector3(-0.35f, 0.11f, 0);
+			if(GameObject.Find("我").transform.position.y > -6) firendTargetPos.y = GameObject.Find("我").transform.localPosition.y + 5.5f;
+			else firendTargetPos.y = GameObject.Find("我").transform.localPosition.y + 9.5f;
 			timer = 0;
 			isActive = false;
 			charsPerSecond = Mathf.Max(0.1f, charsPerSecond);
@@ -61,7 +64,7 @@ public class Plot_Three : MonoBehaviour
 					showText = "";
 					friendMove = true;
 					afterDialog = false;
-					moveWaitTime = Time.time + 0.5f;
+					moveWaitTime = Time.time + 0.15f;
 				}
 				else
 				{
@@ -75,8 +78,10 @@ public class Plot_Three : MonoBehaviour
 				if(bestFriend.transform.localPosition.y >= firendTargetPos.y)
 				{
 					friendMove = false;
-					hintBox.SetActive(true);
-					Invoke("waitClose",2f);
+					meJumpTimer = Time.time;
+					meJumpPos = GameObject.Find("我").transform.localPosition;
+					jumpHint();
+					openMeJump = true;
 					GameData.openMeMove = true;
 					bestFriend.transform.localPosition = new Vector3(8, 20f, 0);
 					GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Play();
@@ -85,11 +90,37 @@ public class Plot_Three : MonoBehaviour
 				else
 				{
 					bestFriend.transform.localPosition += friendMoveSpeed;
-					moveWaitTime = Time.time + 0.3f;
+					moveWaitTime = Time.time + 0.15f;
 				}
 			}
 		}
 		else bestFriend.transform.localPosition = new Vector3(8, 20f, 0);
+		if(openMeJump)
+		{
+			jumpHint();
+		}
+	}
+	
+	void jumpHint()
+	{
+		print(Time.time);
+		if (Time.time > meJumpTimer)
+		{
+			if (Time.time <= meJumpTimer + 0.2f)
+			{
+				GameObject.Find("我").transform.localPosition += meJumpSpeed;
+			}
+			else if (Time.time <= meJumpTimer + 0.4f)
+			{
+				GameObject.Find("我").transform.localPosition -= meJumpSpeed;
+			}
+			else
+			{
+				GameObject.Find("我").transform.localPosition = meJumpPos;
+				meJumpTimer = Time.time + 2f;
+				openMeJump = false;
+			}
+		}
 	}
 	
 	void dialog()
@@ -124,9 +155,5 @@ public class Plot_Three : MonoBehaviour
 		timer = 0;
 		currentPos = 0;
 		afterDialog = true;
-	}
-	void waitClose()
-	{
-		hintBox.SetActive(false);
 	}
 }

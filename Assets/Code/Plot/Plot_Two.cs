@@ -87,6 +87,7 @@ public class Plot_Two : MonoBehaviour
 			charsPerSecond = Mathf.Max(0.1f, charsPerSecond);
 			dialogBoxText.text = "";	
 		}
+		else changeCharacterPos();
 	}
 	
 	void Update()
@@ -134,13 +135,40 @@ public class Plot_Two : MonoBehaviour
 			{
 				hint.SetActive(true);
 				dialogBox.SetActive(true);
-				dialogBoxText.text = "我擦掉嘴角的口水還在回憶剛剛那充滿色彩的奇幻世界...不過還是先去找我的摯友一起去實習工廠吧!";
+				dialogBoxText.text = "我擦掉嘴角的口水，還在回憶剛剛那充滿色彩的奇幻世界...不過還是先去找我的摯友一起去實習工廠吧!";
 			}
 		}
 	}
+	void changeCharacterPos()
+	{
+		Destroy(GameObject.Find("學"));
+		Destroy(GameObject.Find("學 (1)"));
+		Destroy(GameObject.Find("學 (2)"));
+		Destroy(GameObject.Find("學 (3)"));
+		Destroy(GameObject.Find("學 (4)"));
+		Destroy(GameObject.Find("學 (5)"));
+		Destroy(GameObject.Find("學 (6)"));
+		Destroy(GameObject.Find("學 (7)"));
+		Destroy(GameObject.Find("學 (8)"));
+		Destroy(GameObject.Find("學 (9)"));
+		Destroy(GameObject.Find("學 (10)"));
+		Destroy(GameObject.Find("學 (11)"));
+		Destroy(GameObject.Find("學 (12)"));
+		Destroy(GameObject.Find("學 (13)"));
+		Destroy(GameObject.FindWithTag("童"));
+		Destroy(GameObject.FindWithTag("臭"));
+		Destroy(GameObject.FindWithTag("彭"));
+		Destroy(GameObject.FindWithTag("畢"));
+		Destroy(GameObject.FindWithTag("劉"));
+		Destroy(GameObject.FindWithTag("梁"));
+		Destroy(GameObject.FindWithTag("師"));
+		Destroy(GameObject.FindWithTag("美"));
+		Destroy(GameObject.FindWithTag("矮"));
+		Destroy(GameObject.FindWithTag("摯"));
+	}
 	void openMonologue() // 主角獨白
 	{
-		showText="我擦掉嘴角的口水還在回憶剛剛那充滿色彩的奇幻世界...不過還是先去找我的摯友一起去實習工廠吧!";
+		showText = "我擦掉嘴角的口水，還在回憶剛剛那充滿色彩的奇幻世界...不過還是先去找我的摯友一起去實習工廠吧!";
 		isActive = true;
 		dialogBox.SetActive(true);
 		OnStartWriter();

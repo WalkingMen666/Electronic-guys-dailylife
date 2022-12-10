@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class AddScenes : MonoBehaviour
 {
@@ -12,12 +13,33 @@ public class AddScenes : MonoBehaviour
 	 * 工廠 => 4
 	 * 電阻區 => 5
 	 */
+	public static bool goToNextScene = false;
+	void Start()
+	{
+		
+	}
+	void Update()
+	{
+		
+	}
+	
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.gameObject.CompareTag("我") && GameData.closeHint)
 		{	
-			changeMePos();
-			SystemCall.changeScene_Add();
+			if(SceneManager.GetActiveScene().buildIndex == 3)
+			{
+				if(goToNextScene)
+				{
+					changeMePos();
+					SystemCall.changeScene_Add();
+				}
+			}
+			else
+			{
+				changeMePos();
+				SystemCall.changeScene_Add();
+			}
 		}
 	}
 	void changeMePos()

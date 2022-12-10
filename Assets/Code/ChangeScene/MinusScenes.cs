@@ -19,11 +19,11 @@ public class MinusScenes : MonoBehaviour
 		switch (SceneManager.GetActiveScene().buildIndex)
 		{
 			case 3:
-				if (Pos.y > 0)
+				if (Pos.y > -6)
 				{
 					GameData.PlayerPos = new Vector3(-8f, 4.5f, 0);
 				}
-				if (Pos.y < 0)
+				if (Pos.y < -6)
 				{
 					GameData.PlayerPos = new Vector3(-8f, -4.5f, 0);
 				}
