@@ -50,6 +50,8 @@ static class GameData
 	public static bool finishAllQue = false;
 	/// 工廠最後老師說完話
 	public static bool teacherFinishDialog = false;
+	/// 開啟電阻計算機模式
+	public static bool openCalculationMode = true;
 	
 	public static void reset()
 	{
@@ -75,6 +77,7 @@ static class GameData
 		resLevel = GameData_Backup.resLevel;
 		finishAllQue = GameData_Backup.finishAllQue;
 		teacherFinishDialog = GameData_Backup.teacherFinishDialog;
+		openCalculationMode = GameData_Backup.openCalculationMode;
 	}
 
 }

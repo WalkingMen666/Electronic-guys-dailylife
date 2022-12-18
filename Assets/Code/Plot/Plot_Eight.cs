@@ -8,7 +8,6 @@ public class Plot_Eight : MonoBehaviour
 	public GameObject illustrate;		// 說明物件
 	bool openillustrate = false;		// 開啟說明
 	
-	
 	void Start()
 	{
 		illustrate.SetActive(true);

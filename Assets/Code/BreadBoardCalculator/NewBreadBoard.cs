@@ -19,64 +19,136 @@ public class NewBreadBoard : MonoBehaviour
 	public Text res1;				// 電阻二圖示
 	public Text res2;				// 電阻三圖示
 	public Text res3;				// 電阻四圖示
+	public Text sysText;			// 系統提示文字
+	public Text resLimitText;		// 電阻限用數量文字
+	public Text resInputText;		// 電阻輸入文字
 	public Canvas canvas;			// 畫布
 	public GameObject ResObject;	// 電阻物件
 	public GameObject chooseArrow;	// 電阻選擇箭頭
 	public GameObject sysHint;		// 系統提示
 	public GameObject spaceHint;	// 按下Space關閉提示
-	public Text sysText;			// 系統提示文字
-	public Text resLimitText;		// 電阻限用數量文字
+	public GameObject resInput;		// 電阻輸入視窗
 	bool openSysHint;				// 開啟系統提示
+	bool firstSetRes = true;		// 第一次設定電阻
+	
 	
 	[Header("麵包板變數")]
 	int click = 0;					// 點擊次數
 	int tempClick = 0;				// 暫存點擊位置
 	int chooseRes = 1;				// 選擇的電阻編號
-	int resSize;					// 電阻大小
+	float resSize;					// 電阻大小
 	int resAnswer = 0;				// 電阻答案
 	bool achieveResLimit = false;	// 確認達到電阻限制(按下提交後)
 	bool correctAnswer = false;		// 判斷是否為正確答案並繼續
 	string hintText;				// 提示文字
 	bool openHint;					// 開啟提示
+	bool openSetResWindows = false;	// 開啟設定電阻視窗
 	AsyncOperation async;			// 轉換場景
-	List<float> breadBoardRes = new List<float>();						// 麵包板電阻列表
-	List<int> resArray = new List<int>();								// 電阻儲存列表
-	Dictionary<int, int> resNeedToPut = new Dictionary<int, int>();		// 需要放的電阻(電阻大小,電阻數量)
-	Dictionary<int, int> resHadPut = new Dictionary<int, int>();		// 已經放的電阻(電阻大小,電阻數量)
+	float[] tempResArray = new float[4]{0,0,0,0};								// 暫存電阻選擇陣列
+	List<float> breadBoardRes = new List<float>();								// 麵包板電阻列表
+	List<float> resArray = new List<float>();									// 電阻儲存列表
+	Dictionary<float, float> resNeedToPut = new Dictionary<float, float>();		// 需要放的電阻(電阻大小,電阻數量)
+	Dictionary<float, float> resHadPut = new Dictionary<float, float>();		// 已經放的電阻(電阻大小,電阻數量)
 	List<Dictionary<List<float>,List<float>>> tb = new List<Dictionary<List<float>, List<float>>>();	// 淘寶
 	
 	void Start()
 	{
-		changeResLimit();
-		changeAvailableRes();
-		for(int i = 0; i < 5; i++)
+		resInput.SetActive(false);
+		if(!GameData.openCalculationMode)
 		{
-			tb.Add(new Dictionary<List<float>, List<float>>());
+			changeResLimit();
+			changeAvailableRes();
+			for(int i = 0; i < 5; i++)
+			{
+				tb.Add(new Dictionary<List<float>, List<float>>());
+			}
+			async = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 1);
+			async.allowSceneActivation = false;	
 		}
-		async = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 1);
-		async.allowSceneActivation = false;
+		else
+		{
+			resInputText.text = "00";
+			// changeRes();	// 改變電阻
+			for(int i = 0; i < 5; i++)
+			{
+				tb.Add(new Dictionary<List<float>, List<float>>());
+			}
+			targetText.text = "任意輸入想要算的電路圖吧!";
+			resArray.Clear();
+			for(int i  = 0; i < 4; i++) resArray.Add(0);
+			// 改變電阻選擇的文字
+			res0.text = resArray[0].ToString() + "KΩ";
+			res1.text = resArray[1].ToString() + "KΩ";
+			res2.text = resArray[2].ToString() + "KΩ";
+			res3.text = resArray[3].ToString() + "KΩ";
+			openHint = true;
+			resLimitText.text = "等您輸入電路";
+		}
 	}
 	void Update()
 	{
 		changeChooseRes();
-		if(openSysHint && Input.GetKeyDown(KeyCode.Escape))
+		if(!GameData.openCalculationMode)
 		{
-			if(GameData.finishAllQue)
+			if(openSysHint && Input.GetKeyDown(KeyCode.Escape))
 			{
-				async.allowSceneActivation = true;
-			}
-			else if(correctAnswer)
+				if(GameData.finishAllQue)
+				{
+					async.allowSceneActivation = true;
+				}
+				else if(correctAnswer)
+				{
+					GameData.resLevel++;
+					changeAvailableRes();
+					changeResLimit();
+				}
+				openSysHint = false;
+				spaceHint.SetActive(false);
+				correctAnswer = false;
+				GameObject.Find("Pause").GetComponent<PopBox>().hidePop(sysHint);
+				PopBox.sysBoardIsOpen = false;
+				resHadPut.Clear();
+			}	
+		}
+	}
+	public void changeRes(string s)
+	{
+		if(s == "AllClear")
+		{
+			resInputText.text = "00";
+		}
+		else if(s == "Confirm" && openSetResWindows)
+		{	
+			int count = 0;
+			foreach(char c in resInputText.text) if(c == '.') count++;
+			if(count>=2) 
 			{
-				GameData.resLevel++;
-				changeAvailableRes();
-				changeResLimit();
+				resInputText.text = "Error";
+				return;
 			}
-			openSysHint = false;
-			spaceHint.SetActive(false);
-			correctAnswer = false;
-			GameObject.Find("Pause").GetComponent<PopBox>().hidePop(sysHint);
-			PopBox.sysBoardIsOpen = false;
-			resHadPut.Clear();
+			tempResArray[chooseRes - 1] = float.Parse(resInputText.text);
+			resArray.Clear();
+			for(int i = 0; i < 4; i++)
+			{
+				resArray.Add(tempResArray[i]);
+			}
+			// 改變電阻選擇的文字
+			res0.text = resArray[0].ToString() + "KΩ";
+			res1.text = resArray[1].ToString() + "KΩ";
+			res2.text = resArray[2].ToString() + "KΩ";
+			res3.text = resArray[3].ToString() + "KΩ";
+			resInput.SetActive(false);
+			openSetResWindows = false;
+			resInputText.text = "00";
+		}
+		else
+		{
+			if(firstSetRes) 
+			{
+				resInputText.text = s;
+				firstSetRes = false;
+			}
+			else resInputText.text += s;
 		}
 	}
 	public void showHint()
@@ -108,18 +180,26 @@ public class NewBreadBoard : MonoBehaviour
 		resSize = resArray[chooseRes - 1];
 		if(click == 0)
 		{	
-			if(resHadPut.ContainsKey(resSize))
+			if(!GameData.openCalculationMode)
 			{
-				if(resHadPut[resSize] == resNeedToPut[resSize]) 
+				if(resHadPut.ContainsKey(resSize))
 				{
-					sysText.text = "已經達到限用數量囉";
-					return;
+					if(resHadPut[resSize] == resNeedToPut[resSize]) 
+					{
+						sysText.text = "已經達到限用數量囉";
+						return;
+					}
+					else
+					{
+						click++;
+						tempClick = back;
+					}
 				}
 				else
 				{
 					click++;
 					tempClick = back;
-				}	
+				}
 			}
 			else
 			{
@@ -130,7 +210,7 @@ public class NewBreadBoard : MonoBehaviour
 		else
 		{
 			click = 0;
-			if(resSize != 0)
+			if(resSize != 0 || GameData.openCalculationMode)
 			{
 				if(back > tempClick)
 				{
@@ -193,42 +273,54 @@ public class NewBreadBoard : MonoBehaviour
 	// 當玩家按下"提交"後會執行
 	public void calculate()
 	{
-		checkOutOfLimit();
-		if(achieveResLimit)
+		if(!GameData.openCalculationMode)
 		{
-			Calculation(breadBoardRes, tb);
-			StringProcess(breadBoardRes, tb);
-			if(resAnswer == breadBoardRes[0])
+			checkOutOfLimit();
+			if(achieveResLimit)
 			{
-				if(GameData.resLevel != 5)
+				Calculation(breadBoardRes, tb);		// 處理計算
+				if(resAnswer == breadBoardRes[0])
 				{
-					sysText.text = "正確答案!!加油~剩" + (5-GameData.resLevel).ToString() + "題了!";
-					correctAnswer = true;
-					showSysBoard();
+					if(GameData.resLevel != 5)
+					{
+						sysText.text = "正確答案!!加油~剩" + (5-GameData.resLevel).ToString() + "題了!";
+						correctAnswer = true;
+						showSysBoard();
+					}
+					else
+					{
+						sysText.text = "恭喜!!您已完成所有題目";
+						correctAnswer = true;
+						GameData.finishAllQue = true;
+						showSysBoard();
+					}				
 				}
 				else
 				{
-					sysText.text = "恭喜!!您已完成所有題目";
-					correctAnswer = true;
-					GameData.finishAllQue = true;
+					sysText.text = "杯~杯~答錯囉~再試一次吧";
+					correctAnswer = false;
 					showSysBoard();
-				}				
+				}
 			}
 			else
 			{
-				sysText.text = "杯~杯~答錯囉~再試一次吧";
+				if(resHadPut.Count != 0) sysText.text = "要用到指定數量喔";
+				else sysText.text = "先放幾個電阻再交答案吧";
 				correctAnswer = false;
 				showSysBoard();
 			}
+			clear();
 		}
 		else
 		{
-			if(resHadPut.Count != 0) sysText.text = "要用到指定數量喔";
-			else sysText.text = "先放幾個電阻再交答案吧";
-			correctAnswer = false;
-			showSysBoard();
+			Calculation(breadBoardRes, tb);		// 處理計算
+			StringProcess(breadBoardRes, tb);	// 處理算式
+			targetText.text = "答案為：" + breadBoardRes[0];
+			if(show.Equals("")) show += breadBoardRes[0];
+			resLimitText.text = "運算式為：" + show;
+			print(show);
+			show = "";
 		}
-		clear();
 	}
 	void showSysBoard()
 	{
@@ -267,6 +359,7 @@ public class NewBreadBoard : MonoBehaviour
 				chooseRes = 4;
 				chooseArrow.transform.localPosition = new Vector3(450, -510, 0);
 			}
+			
 		}
 		if (Input.GetKeyDown(KeyCode.RightArrow))
 		{
@@ -280,6 +373,12 @@ public class NewBreadBoard : MonoBehaviour
 				chooseRes = 1;
 				chooseArrow.transform.localPosition = new Vector3(-450, -510, 0);
 			}
+		}
+		if(GameData.openCalculationMode && Input.GetKeyDown(KeyCode.Return))
+		{
+			resInput.SetActive(true);
+			openSetResWindows = true;
+			firstSetRes = true;
 		}
 	}
 	// 改變可使用的電阻
@@ -344,7 +443,7 @@ public class NewBreadBoard : MonoBehaviour
 				resAnswer = 4;
 				break;
 			case 3:
-				GameData.resLimit = "用7個12KΩ的電阻組成10KΩ";
+				GameData.resLimit = "用7個12KΩ，一個3KΩ的電阻組成10KΩ";
 				hintText = "【並串並】之歌~欸?你沒聽過嗎?";
 				resNeedToPut.Add(12,7);
 				resNeedToPut.Add(3,1);
@@ -374,7 +473,7 @@ public class NewBreadBoard : MonoBehaviour
 		int abnormal;
 		bool except1, except2, except3;
 		Electronic.sort(list);
-		while(list.Count > 3)
+		while(list.Count > 3)	//whileLoop -> debug -- list.size()沒變->無法計算
 		{
 			except1 = except2 = except3 = true;
 			abnormal = list.Count;
@@ -409,18 +508,33 @@ public class NewBreadBoard : MonoBehaviour
 	}
 	public static void StringProcess(List<float> list, List<Dictionary<List<float>, List<float>>> tb)
 	{
-		if(!tb[0].ContainsKey(list)) return;
-		List<float> temp = new List<float>();
-		List<float> fsp = new List<float>();
-		List<float> lsp = new List<float>();
+		if(!tb[0].ContainsKey(list)) 
+		{
+			foreach(float f in list) print("List：" + f);
+			foreach(List<float> f in tb[0].Keys)
+			{
+				foreach(float f2 in f)
+				{
+					print("Keys：" + f2);
+				}
+			}
+			return;
+		}
+		List<float> temp = new List<float>();	//暫存 end list
+		List<float> fsp = new List<float>();	//串並聯的前項
+		List<float> lsp = new List<float>();	//串並聯的後項
+		
 		temp = tb[0][list];
+		//刪除map  往前推
+		tb[0].Remove(list);
 		for(int i = 0; i < 4; i++)
 		{
 			if(!tb[i+1].ContainsKey(list)) continue;
-			tb[i][list] = tb[i+1][list];
+			tb[i].Add(list,tb[i+1][list]);
 			tb[i+1].Remove(list);
 		}
 		show += "(";
+		//電橋
 		if(temp.Count == 15)
 		{
 			float sum = temp[0]+temp[3]+temp[9];
@@ -429,21 +543,23 @@ public class NewBreadBoard : MonoBehaviour
 			float delta3 = temp[0]*temp[9]/sum;
 			show += delta1 + "+(" + delta2 + "+" + temp[6] + ")//(" + delta3 + "+" + temp[12] + ")";
 		}
+		//終點不同 串聯
 		else if(!temp[2].Equals(temp[5]))
 		{
 			for(int i = 0; i < 3; i++) fsp.Add(temp[i]);
-			for(int i = 0; i < 6; i++) lsp.Add(temp[i]);
+			for(int i = 3; i < 6; i++) lsp.Add(temp[i]);
 			string method = "+";
 			if(tb[0].ContainsKey(fsp)) StringProcess(fsp, tb);
-			else show+= fsp[0];
+			else show += fsp[0];
 			show += method;
 			if(tb[0].ContainsKey(lsp)) StringProcess(lsp, tb);
-			else show += list[0];
+			else show += lsp[0];
 		}
+		//並聯
 		else
 		{
 			for(int i = 0; i < 3; i++) fsp.Add(temp[i]);
-			for(int i = 0; i < 6; i++) lsp.Add(temp[i]);
+			for(int i = 3; i < 6; i++) lsp.Add(temp[i]);
 			string method = "//";
 			if(tb[0].ContainsKey(fsp)) StringProcess(fsp,tb);
 			else show += fsp[0];

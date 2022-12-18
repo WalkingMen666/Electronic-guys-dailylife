@@ -87,6 +87,9 @@ TagManager:
   - "\u8A2D2"
   - "\u68AF"
   - "\u6559\u5B98"
+  - "\u9F8D"
+  - "\u7378"
+  - "\u6559"
   layers:
   - Default
   - TransparentFX

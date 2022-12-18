@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Plot_Five : MonoBehaviour
 {
-    public SceneFader sceneFader;	// 場景淡入
+	public SceneFader sceneFader;	// 場景淡入
 	
 	void Start()
 	{

@@ -51,4 +51,6 @@ public class GameData_Backup : MonoBehaviour
 	public static bool finishAllQue = false;
 	/// 工廠最後老師說完話
 	public static bool teacherFinishDialog = false;
+	/// 開啟電阻計算機模式
+	public static bool openCalculationMode = false;
 }
