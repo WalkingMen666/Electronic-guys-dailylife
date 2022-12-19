@@ -85,7 +85,7 @@ public class ME : MonoBehaviour
 		if(GameData.openMeMove) 
 		{
 			leaveClassRoomOrNot();
-			goPlotFive();
+			// goPlotFive();
 			Movement();
 			OnStartWriter();
 			if (Input.GetKeyDown(KeyCode.E) && !GameData.textTouching)

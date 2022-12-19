@@ -14,14 +14,6 @@ public class AddScenes : MonoBehaviour
 	 * 電阻區 => 5
 	 */
 	public static bool goToNextScene = false;
-	void Start()
-	{
-		
-	}
-	void Update()
-	{
-		
-	}
 	
 	void OnTriggerEnter2D(Collider2D other)
 	{

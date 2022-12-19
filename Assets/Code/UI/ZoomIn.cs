@@ -14,8 +14,8 @@ public class ZoomIn : MonoBehaviour
 	void Start()
 	{
 		cam = Camera.main;
-		async = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-		async.allowSceneActivation = false;
+		// async = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+		// async.allowSceneActivation = false;
 	}
 	public void LateUpdate()
 	{
@@ -29,6 +29,11 @@ public class ZoomIn : MonoBehaviour
 			cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 5, speed);
 			cam.transform.position = Vector3.Lerp(cam.transform.position, Target[0], speed);
 		}
-		if(cam.orthographicSize <= 0.01176) async.allowSceneActivation = true;
+		if(cam.orthographicSize <= 0.01176) 
+		{
+			print("ChangeScene");
+			// async.allowSceneActivation = true;
+			SystemCall.changeScene_Add();
+		}
 	}
 }

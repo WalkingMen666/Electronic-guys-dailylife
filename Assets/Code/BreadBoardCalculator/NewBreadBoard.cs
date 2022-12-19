@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 
 public class NewBreadBoard : MonoBehaviour
 {
+	int countTimes = 0;
+	
 	public static float answer = 0;	// 答案
 	public static string show = "";	// 運算式
 	
@@ -314,9 +316,12 @@ public class NewBreadBoard : MonoBehaviour
 		else
 		{
 			Calculation(breadBoardRes, tb);		// 處理計算
+			// print(tb[0].Count);
+			// if(tb[0].Count != 0)
+			// 	StringProcess(breadBoardRes, tb);	// 處理算式
 			StringProcess(breadBoardRes, tb);	// 處理算式
 			targetText.text = "答案為：" + breadBoardRes[0];
-			if(show.Equals("")) show += breadBoardRes[0];
+			if(show.Equals("")) show += breadBoardRes[0];	// 如果只有一顆電阻，直接回傳答案
 			resLimitText.text = "運算式為：" + show;
 			print(show);
 			show = "";
@@ -507,26 +512,60 @@ public class NewBreadBoard : MonoBehaviour
 		}
 	}
 	public static void StringProcess(List<float> list, List<Dictionary<List<float>, List<float>>> tb)
-	{
-		if(!tb[0].ContainsKey(list)) 
-		{
-			foreach(float f in list) print("List：" + f);
-			foreach(List<float> f in tb[0].Keys)
-			{
-				foreach(float f2 in f)
-				{
-					print("Keys：" + f2);
-				}
-			}
-			return;
-		}
+	{	
 		List<float> temp = new List<float>();	//暫存 end list
 		List<float> fsp = new List<float>();	//串並聯的前項
 		List<float> lsp = new List<float>();	//串並聯的後項
+		bool deal = false;
 		
-		temp = tb[0][list];
-		//刪除map  往前推
-		tb[0].Remove(list);
+		// if(!tb[0].ContainsKey(list)) return;
+		int check = 0;
+		foreach(List<float> l in tb[0].Keys)
+		{
+			check = 0;
+			for(int i = 0; i < 3; i++)
+			{
+				if(list[i].Equals(l[i])) 
+				{
+					check++;
+				}
+			}
+			if(check == 3)
+			{
+				for(int i = 0; i < tb[0][l].Count; i++)
+				{
+					temp.Add(tb[0][l][i]);
+				}
+				break;
+			}
+		}
+		print("Count");
+		if(check != 3)
+		{
+			print("Return");
+			print("Check：" + check);
+			return;
+		}
+		foreach(float f in temp)
+		{
+			print("Temp：" + f);
+		}
+		foreach(List<float> l in tb[0].Keys)
+		{
+			check = 0;
+			for(int i = 0; i < 3; i++)
+			{
+				if(list[i].Equals(l[i])) 
+				{
+					check++;
+				}
+			}
+			if(check == 3) 
+			{
+				tb[0].Remove(l);
+				break;
+			}
+		}
 		for(int i = 0; i < 4; i++)
 		{
 			if(!tb[i+1].ContainsKey(list)) continue;
@@ -549,11 +588,53 @@ public class NewBreadBoard : MonoBehaviour
 			for(int i = 0; i < 3; i++) fsp.Add(temp[i]);
 			for(int i = 3; i < 6; i++) lsp.Add(temp[i]);
 			string method = "+";
-			if(tb[0].ContainsKey(fsp)) StringProcess(fsp, tb);
-			else show += fsp[0];
+			foreach(List<float> l in tb[0].Keys)
+			{
+				check = 0;
+				for(int i = 0; i < 3; i++)
+				{
+					if(fsp[i].Equals(l[i])) 
+					{
+						check++;
+					}
+				}
+				if(check == 3)
+				{
+					StringProcess(fsp, tb);
+					deal = true;
+					break;
+				}
+			}
+			if(!deal) 
+			{
+				print("Test");
+				show += fsp[0];
+			}
+			deal = false;
 			show += method;
-			if(tb[0].ContainsKey(lsp)) StringProcess(lsp, tb);
-			else show += lsp[0];
+			foreach(List<float> l in tb[0].Keys)
+			{
+				check = 0;
+				for(int i = 0; i < 3; i++)
+				{
+					if(lsp[i].Equals(l[i])) 
+					{
+						check++;
+					}
+				}
+				if(check == 3)
+				{
+					StringProcess(lsp, tb);
+					deal = true;
+					break;
+				}
+			}
+			if(!deal) 
+			{
+				print("Test2");
+				show += lsp[0];
+			}
+			deal = false;
 		}
 		//並聯
 		else
@@ -561,11 +642,53 @@ public class NewBreadBoard : MonoBehaviour
 			for(int i = 0; i < 3; i++) fsp.Add(temp[i]);
 			for(int i = 3; i < 6; i++) lsp.Add(temp[i]);
 			string method = "//";
-			if(tb[0].ContainsKey(fsp)) StringProcess(fsp,tb);
-			else show += fsp[0];
+			foreach(List<float> l in tb[0].Keys)
+			{
+				check = 0;
+				for(int i = 0; i < 3; i++)
+				{
+					if(fsp[i].Equals(l[i])) 
+					{
+						check++;
+					}
+				}
+				if(check == 3)
+				{
+					StringProcess(fsp, tb);
+					deal = true;
+					break;
+				}
+			}
+			if(!deal) 
+			{
+				print("Test");
+				show += fsp[0];
+			}
+			deal = false;
 			show += method;
-			if(tb[0].ContainsKey(lsp)) StringProcess(lsp, tb);
-			else show += lsp[0];
+			foreach(List<float> l in tb[0].Keys)
+			{
+				check = 0;
+				for(int i = 0; i < 3; i++)
+				{
+					if(lsp[i].Equals(l[i])) 
+					{
+						check++;
+					}
+				}
+				if(check == 3)
+				{
+					StringProcess(lsp, tb);
+					deal = true;
+					break;
+				}
+			}
+			if(!deal) 
+			{
+				print("Test2");
+				show += lsp[0];
+			}
+			deal = false;
 		}
 		show += ")";
 		return;

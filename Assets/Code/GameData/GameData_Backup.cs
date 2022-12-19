@@ -53,4 +53,8 @@ public class GameData_Backup : MonoBehaviour
 	public static bool teacherFinishDialog = false;
 	/// 開啟電阻計算機模式
 	public static bool openCalculationMode = false;
+	/// 躲教官遊戲關卡
+	public static int level;
+	/// 躲教官遊戲使用角色名稱
+	public static string usingName;
 }

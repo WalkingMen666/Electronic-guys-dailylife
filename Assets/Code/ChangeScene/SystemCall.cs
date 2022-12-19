@@ -26,7 +26,9 @@ public class SystemCall : MonoBehaviour
 		// print("GetIn：" + sceneNum + " ; " + sceneAsync_Add.allowSceneActivation);
 		// sceneAsync_Add.allowSceneActivation = true;
 		// print("Done：" + sceneNum + " ; " + sceneAsync_Add.allowSceneActivation);
-		SceneManager.LoadScene(sceneNum + 1);
+		if(SceneManager.GetActiveScene().buildIndex != 5)
+			SceneManager.LoadScene(sceneNum + 1);
+		else SceneManager.LoadScene(sceneNum + 2);
 	}
 	/// 前一個場景
 	public static void changeScene_Sub()

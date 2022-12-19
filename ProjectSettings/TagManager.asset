@@ -90,6 +90,8 @@ TagManager:
   - "\u9F8D"
   - "\u7378"
   - "\u6559"
+  - "\u745E"
+  - sound
   layers:
   - Default
   - TransparentFX

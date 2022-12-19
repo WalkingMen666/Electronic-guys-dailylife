@@ -8426,9 +8426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be713f2071bb69043936260c0330e178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneFader: {fileID: 5110561641452165077, guid: 1ba184745af688343948b0567df3d8c9, type: 3}
-  fadeInTime: 2.5
-  fadeOutTime: 2.5
 --- !u!1001 &1306372981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13486,5 +13483,9 @@ PrefabInstance:
       propertyPath: volume
       value: 
       objectReference: {fileID: 1984405438}
+    - target: {fileID: 7432033467703099129, guid: 2da298e3d750ca24e89212a50e8b188b, type: 3}
+      propertyPath: muciCube
+      value: 
+      objectReference: {fileID: 2383675576243802706, guid: fc9fb5e6313a41746bc1220a965789c7, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2da298e3d750ca24e89212a50e8b188b, type: 3}

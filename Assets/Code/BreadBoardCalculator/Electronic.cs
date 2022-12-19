@@ -89,7 +89,10 @@ public class Electronic : MonoBehaviour
 		//tb process
 		for(int j = 0; j < 5; j++)
 		{
-			if(tb[j].ContainsKey(end)) continue;
+			if(tb[j].ContainsKey(end))
+			{
+				continue;
+			}
 			tb[j].Add(end,origin);
 			break;
 		}
