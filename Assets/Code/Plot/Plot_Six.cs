@@ -25,45 +25,59 @@ public class Plot_Six : MonoBehaviour
 	
 	void Start()
 	{
-		charsPerSecond = Mathf.Max(0.1f, charsPerSecond);
-		dialogBoxText.text = "";
-		timer = 0;
-		GameData.openMeMove = false;
-		GetDialogText(dialogFile);
-		changeDialog();
-		dialogBox.SetActive(true);
-		isActive = true;
+		if(!GameData.finishPlotSix)
+		{
+			charsPerSecond = Mathf.Max(0.1f, charsPerSecond);
+			dialogBoxText.text = "";
+			timer = 0;
+			GameData.openMeMove = false;
+			GetDialogText(dialogFile);
+			changeDialog();
+			dialogBox.SetActive(true);
+			isActive = true;
+		}
 	}
 	void Update()
 	{
-		if(!isActive)
+		if(!GameData.finishPlotSix)
 		{
-			if(Input.GetKeyDown(KeyCode.Space))
+			if(!isActive)
 			{
-				if(currentDialog != endDialog + 1)
+				if(Input.GetKeyDown(KeyCode.Space))
 				{
-					hint.SetActive(false);
-					dialogBoxText.text = "";
-					currentPos = 0;
-					timer = 0;
-					changeDialog();
-					isActive = true;
-					OnStartWriter();
+					if(currentDialog != endDialog + 1)
+					{
+						hint.SetActive(false);
+						dialogBoxText.text = "";
+						currentPos = 0;
+						timer = 0;
+						changeDialog();
+						isActive = true;
+						OnStartWriter();
+					}
+					else OnFinish();
 				}
-				else OnFinish();
+			}
+			else
+			{
+				OnStartWriter();
+			}
+			if(finishJump && currentDialog - 1 == 3)
+			{
+				dialogBoxText.text = "";
+				changeDialog();
+				dialogBox.SetActive(true);
+				isActive = true;
+				OnStartWriter();
 			}
 		}
 		else
 		{
-			OnStartWriter();
-		}
-		if(finishJump && currentDialog - 1 == 3)
-		{
-			dialogBoxText.text = "";
-			changeDialog();
-			dialogBox.SetActive(true);
-			isActive = true;
-			OnStartWriter();
+			GameObject.Find("摯").transform.localPosition = new Vector3(7.5f, -5.5f, 0);
+			GameObject.Find("童").transform.localPosition = new Vector3(7.5f, -6f, 0);
+			GameObject.Find("瑞").transform.localPosition = new Vector3(7.5f, -5f, 0);
+			GameObject.Find("我").transform.localPosition = new Vector3(7.5f, -2.5f, 0);
+			GameData.PlayerPos = new Vector3(7.5f, -2.5f, 0);
 		}
 	}
 	

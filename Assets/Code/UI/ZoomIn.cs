@@ -33,6 +33,8 @@ public class ZoomIn : MonoBehaviour
 		{
 			print("ChangeScene");
 			// async.allowSceneActivation = true;
+			zoomActive = false;
+			GameData.finishSecondPlotInFactory = true;
 			SystemCall.changeScene_Add();
 		}
 	}

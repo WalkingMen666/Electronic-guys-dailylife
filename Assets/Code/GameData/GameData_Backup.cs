@@ -47,6 +47,8 @@ public class GameData_Backup : MonoBehaviour
 	public static int resLevel = 1;
 	/// 電阻限用數量
 	public static string resLimit;
+	///工廠內第二段劇情完成
+	public static bool finishSecondPlotInFactory = false;
 	/// 完成所有電阻題目
 	public static bool finishAllQue = false;
 	/// 工廠最後老師說完話

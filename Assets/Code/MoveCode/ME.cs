@@ -411,7 +411,8 @@ public class ME : MonoBehaviour
 				GameData.closeHint = true;
 				hintName = "";
 				thingsToDo.text = "到座位上準備考試吧";
-				GameData.PlayerPos = new Vector3(-6.5f, 3.5f, 0);
+				if (!GameData.finishSecondPlotInFactory) GameData.PlayerPos = new Vector3(-6.5f, 3.5f, 0);
+				else GameData.PlayerPos = new Vector3(-4.5f, 1f, 0);
 				GameData.openMeMove = false;
 				break;
 			default:

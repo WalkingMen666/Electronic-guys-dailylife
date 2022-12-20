@@ -40,14 +40,18 @@ static class GameData
 	public static bool exitClassroom = false;
 	/// 已經結束對話二
 	public static bool Plot2_CloseDialog = false;
-	///劇情六角色全部完成移動
+	/// 劇情六角色全部完成移動
 	public static int allDone_PlotSix = 0;
+	/// 劇情六(工廠外走廊)完成劇情
+	public static bool finishPlotSix = false;
 	/// 電阻關卡編號
 	public static int resLevel = 1;
 	/// 電阻限用數量
 	public static string resLimit;
 	/// 完成所有電阻題目
 	public static bool finishAllQue = false;
+	///工廠內第二段劇情完成
+	public static bool finishSecondPlotInFactory = false;
 	/// 工廠最後老師說完話
 	public static bool teacherFinishDialog = false;
 	/// 開啟電阻計算機模式
@@ -84,6 +88,7 @@ static class GameData
 		openCalculationMode = GameData_Backup.openCalculationMode;
 		level = GameData_Backup.level;
 		usingName = GameData_Backup.usingName;
+		finishSecondPlotInFactory = GameData_Backup.finishSecondPlotInFactory;
 	}
 
 }

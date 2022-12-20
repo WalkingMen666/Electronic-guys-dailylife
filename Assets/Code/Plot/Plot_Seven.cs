@@ -29,7 +29,7 @@ public class Plot_Seven : MonoBehaviour
 	bool finishFirstPlot = false;	// 完成第一段劇情
 	bool finishMeMove = false;		// 完成"我"移動
 	bool finishTeacherMove = false;	// 完成老師移動
-	float moveTick = 0.3f;			// 移動時間間隔
+	float moveTick = 0.2f;			// 移動時間間隔
 	public SceneFader sceneFader;	// 場景淡出
 	Vector3 targetPos = new Vector3(-4.5f, 1f, 0);			// "我"目標位置
 	Vector3 teacherMoveDis = new Vector3(0.5f, 0, 0);		// 老師移動距離
@@ -38,22 +38,33 @@ public class Plot_Seven : MonoBehaviour
 	
 	void Start()
 	{
-		charsPerSecond = Mathf.Max(0.1f, charsPerSecond);
-		dialogBoxText.text = "";
-		timer = 0;
-		GameData.openMeMove = false;
-		GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Stop();
-		if(!GameData.finishAllQue) GetDialogText(dialogFile);
-		else
+		if (GameData.finishSecondPlotInFactory && !GameData.finishAllQue)
 		{
-			GetDialogText(dialogFile2);
-			GameObject.Find("我").transform.localPosition = new Vector3(-4.5f, 1, 0);
+			GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Play();
+			GameObject.FindWithTag("師").transform.localPosition = teacherTargetPos;
+			GameObject.Find("我").transform.localPosition = targetPos;
+			finishFirstPlot = true;
 		}
-		changeDialog();
-		dialogBox.SetActive(true);
-		isActive = true;
-		async = SceneManager.LoadSceneAsync(10);
-		async.allowSceneActivation = false;
+		else if (!GameData.teacherFinishDialog)
+        {
+			charsPerSecond = Mathf.Max(0.1f, charsPerSecond);
+			dialogBoxText.text = "";
+			timer = 0;
+			GameData.openMeMove = false;
+			GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Stop();
+			if (!GameData.finishAllQue) GetDialogText(dialogFile);
+			else
+			{
+				GetDialogText(dialogFile2);
+				GameObject.Find("我").transform.localPosition = new Vector3(-4.5f, 1, 0);
+			}
+			changeDialog();
+			dialogBox.SetActive(true);
+			isActive = true;
+			async = SceneManager.LoadSceneAsync(10);
+			async.allowSceneActivation = false;
+			print(GameData.finishSecondPlotInFactory);
+		}
 	}
 	void Update()
 	{
@@ -61,7 +72,7 @@ public class Plot_Seven : MonoBehaviour
 		{
 			if(Input.GetKeyDown(KeyCode.Space))
 			{
-				if(!GameData.finishAllQue)
+				if(!GameData.finishAllQue && !GameData.finishSecondPlotInFactory)
 				{
 					if(!finishFirstPlot && currentDialog == 1)
 					{
@@ -107,14 +118,15 @@ public class Plot_Seven : MonoBehaviour
 				}
 			}
 		}
-		else OnStartWriter();
+		else if ((GameData.finishSecondPlotInFactory || GameData.finishAllQue || !finishFirstPlot) || (finishFirstPlot && !GameData.finishSecondPlotInFactory)) OnStartWriter();
 		if(finishFirstPlot && GameObject.Find("我").transform.localPosition == targetPos && Input.GetKeyDown(KeyCode.E))
 		{
 			GameData.openMeMove = false;
 			GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Stop();
 			finishMeMove = true;
+			if(GameData.finishSecondPlotInFactory) Invoke("zoomin", 0.5f);
 		}
-		if(finishFirstPlot && !finishTeacherMove && finishMeMove)
+		if(finishFirstPlot && !finishTeacherMove && finishMeMove && !GameData.finishSecondPlotInFactory)
 		{
 			moveTeacher();
 		}
@@ -203,7 +215,7 @@ public class Plot_Seven : MonoBehaviour
 			{
 				if(Pos == teacherChangePos) Pos.y -= 0.5f;
 				else Pos.x += teacherMoveDis.x;
-				moveTick = Time.time + 0.3f;	
+				moveTick = Time.time + 0.2f;	
 			}
 		}
 		else finishTeacherMove = true;

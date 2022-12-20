@@ -22,13 +22,16 @@ public class SystemCall : MonoBehaviour
 	
 	/// 下一個場景
 	public static void changeScene_Add()
-	{	
+	{
 		// print("GetIn：" + sceneNum + " ; " + sceneAsync_Add.allowSceneActivation);
 		// sceneAsync_Add.allowSceneActivation = true;
 		// print("Done：" + sceneNum + " ; " + sceneAsync_Add.allowSceneActivation);
-		if(SceneManager.GetActiveScene().buildIndex != 5)
+		if (SceneManager.GetActiveScene().buildIndex != 5)
 			SceneManager.LoadScene(sceneNum + 1);
-		else SceneManager.LoadScene(sceneNum + 2);
+		else
+		{
+			SceneManager.LoadScene(sceneNum + 2);
+		}
 	}
 	/// 前一個場景
 	public static void changeScene_Sub()

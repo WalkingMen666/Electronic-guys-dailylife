@@ -513,13 +513,13 @@ public class NewBreadBoard : MonoBehaviour
 	}
 	public static void StringProcess(List<float> list, List<Dictionary<List<float>, List<float>>> tb)
 	{	
+	
 		List<float> temp = new List<float>();	//暫存 end list
 		List<float> fsp = new List<float>();	//串並聯的前項
 		List<float> lsp = new List<float>();	//串並聯的後項
 		bool deal = false;
-		
-		// if(!tb[0].ContainsKey(list)) return;
 		int check = 0;
+		
 		foreach(List<float> l in tb[0].Keys)
 		{
 			check = 0;
@@ -539,16 +539,9 @@ public class NewBreadBoard : MonoBehaviour
 				break;
 			}
 		}
-		print("Count");
 		if(check != 3)
 		{
-			print("Return");
-			print("Check：" + check);
 			return;
-		}
-		foreach(float f in temp)
-		{
-			print("Temp：" + f);
 		}
 		foreach(List<float> l in tb[0].Keys)
 		{
