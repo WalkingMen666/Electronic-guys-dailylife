@@ -85,7 +85,7 @@ public class ME : MonoBehaviour
 		if(GameData.openMeMove) 
 		{
 			leaveClassRoomOrNot();
-			// goPlotFive();
+			goPlotFive();
 			Movement();
 			OnStartWriter();
 			if (Input.GetKeyDown(KeyCode.E) && !GameData.textTouching)
@@ -347,9 +347,11 @@ public class ME : MonoBehaviour
 	{
 		if(SceneManager.GetActiveScene().buildIndex == 5)
 		{
-			Vector3 Pos = GameObject.Find("我").transform.position;
+			Vector3 Pos = this.gameObject.transform.position;
 			if(Pos.x >= -4)
 			{
+				Destroy(this.gameObject);
+				GameData.openMeMove = false;
 				SystemCall.changeScene_Add();
 			}	
 		}

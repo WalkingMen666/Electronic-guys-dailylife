@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Stu_Move : MonoBehaviour
 {
-	Vector3 moveSpeed = new Vector3(2, 0, 0);		// 移動速度
-	Vector3 targetPos = new Vector3(9.5f, 0, 0);	// 目標位置(X軸)
+	Vector3 moveSpeed = new Vector3(2, 0, 0);			// 移動速度
+	Vector3 targetPos = new Vector3(9.5f, 0, 0);		// 目標位置(X軸)
 	
 	void FixedUpdate()
 	{
 		if(!HideAndSeek.openPressToContinue)
 		{
 			changeMoveSpeed();
-			if(!HideAndSeek.openGameIntroduce) this.transform.localPosition += moveSpeed*Time.deltaTime;
+			if(!HideAndSeek.openGameIntroduce) 
+			{
+				this.transform.localPosition += moveSpeed*Time.deltaTime;
+			}
 			if(this.transform.localPosition.x >= targetPos.x) Destroy(this.gameObject);
 		}
 		else

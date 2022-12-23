@@ -9,7 +9,7 @@ public class Move_For_PlotSix : MonoBehaviour
 	Vector3 nowPos = new Vector3();			// 當前位置
 	Vector3 endPos = new Vector3();			// 目標位置
 	float moveDis = 0.5f;					// 移動距離
-	float moveTick = 0.3f;					// 移動時間間隔
+	float moveTick = 0.15f;					// 移動時間間隔
 	float jumpTimer;						// 跳躍時間
 	int jumpCount = 2;						// 跳躍次數
 	public static bool openJumpEffect = false;		// 開啟"摯"與"童"跳跳動畫
@@ -29,15 +29,16 @@ public class Move_For_PlotSix : MonoBehaviour
 		{
 			nowPos = this.gameObject.transform.localPosition;
 			move();
-			moveTick = Time.time + 0.3f;
+			moveTick = Time.time + 0.15f;
 		}
-		else if(!openMove && GameData.allDone_PlotSix == 2) // 瑞加入後要改成3
+		else if(!openMove && GameData.allDone_PlotSix == 3) // 瑞加入後要改成3
 		{
 			Plot_Six.openMeDialog = true;
 		}
 		if(openJumpEffect && !openMove && !jumping)
 		{
-			if(gameObjectName == "童") jumpTimer = Time.time + 0.3f;
+			if(gameObjectName == "童") jumpTimer = Time.time + 0.05f;
+			if(gameObjectName == "瑞") jumpTimer = Time.time + 0.1f;
 			else jumpTimer = Time.time;
 			nowPos = this.gameObject.transform.localPosition;
 			jumping = true;
@@ -71,7 +72,7 @@ public class Move_For_PlotSix : MonoBehaviour
 				endPos = new Vector3(7.5f, -6f, 0);
 				break;
 			case "瑞":
-				endPos = new Vector3(7.5f, -5f, 0);
+				endPos = new Vector3(7.5f, -6.5f, 0);
 				break;
 			default:
 				break;

@@ -11,12 +11,14 @@ public class HideAndSeek : MonoBehaviour
 	public GameObject tcy;		// "童"物件
 	public GameObject ray;		// "瑞"物件
 	public GameObject firend;	// "摯"物件
+	
 	[Header("UI")]
 	public GameObject gameIntroduce;						// 遊戲說明
 	public GameObject sysHint;								// 系統提示(抵達終點or其他)
 	public GameObject pressToContinue;						// 按下空白鍵繼續
 	public Text sysHintText;								// 系統提示文字
 	public static bool openPressToContinue = false;			// 開啟"按下空白鍵繼續"
+	
 	
 	[Header("變數")]
 	Vector3 characterMoveSpeed = new Vector3(2.5f, 0, 0);	// 移動速度
@@ -25,7 +27,9 @@ public class HideAndSeek : MonoBehaviour
 	float moveTick = 3;										// "學"生成間隔時間
 	float time = 0;											// 計時器
 	bool allPass = false;									// 全過關
-	Ray2D detect;
+	float startDetectLine = -6f;							// 遊戲開始偵測線
+	public static List<float> stusPosX = new List<float>();	// 當前的X軸位置
+	bool reStart = false;									// 重新再來一遍~~
 	
 	void Start()
 	{
@@ -48,21 +52,8 @@ public class HideAndSeek : MonoBehaviour
 			openGameIntroduce = false;
 			gameIntroduce.SetActive(false);
 		}
-		int lay = LayerMask.NameToLayer("Stage");
-		// RaycastHit2D detect = Physics2D.Raycast(GameObject.FindWithTag("教官").transform.localPosition, GameObject.FindWithTag(GameData.usingName).transform.localPosition, Mathf.Infinity, lay);
-		// if(detect.collider != null)
-		// {
-		// 	print("Work!!");
-		// 	print("Name：" + detect.collider.tag);
-		// }
-		detect = new Ray2D(GameObject.FindWithTag("教官").transform.localPosition,GameObject.FindWithTag(GameData.usingName).transform.localPosition);
-		RaycastHit2D info = Physics2D.Raycast(detect.origin, detect.direction, Mathf.Infinity, 1 << lay);
-		Debug.DrawLine(detect.origin, detect.direction, Color.blue);
-		if(info.collider != null)
-		{
-			print(info.collider.transform.gameObject.tag);
-		}
 	}
+	
 	void FixedUpdate()
 	{
 		if(!openGameIntroduce && !allPass)
@@ -91,20 +82,100 @@ public class HideAndSeek : MonoBehaviour
 					pressToContinue.SetActive(false);
 					sysHint.SetActive(false);
 					openPressToContinue = false;
-					Destroy(GameObject.FindWithTag(GameData.usingName).gameObject);
-					GameData.level++;
-					print(GameData.level);
-					if(GameData.level > 4) 
+					if(reStart)
 					{
-						allPass = true;
-						return;
+						changeUsingCharacter();
+						reStart = false;
 					}
-					changeUsingCharacter();
+					else
+					{
+						Destroy(GameObject.FindWithTag(GameData.usingName).gameObject);
+						GameData.level++;
+						print(GameData.level);
+						if(GameData.level > 4) 
+						{
+							allPass = true;
+							SystemCall.changeScene_Add();
+							return;
+						}
+						changeUsingCharacter();	
+					}
 				}
 			}
-			if(!openPressToContinue) move();
+			else
+			{
+				move();
+				checkPos();
+			}
 		}
 	}
+	
+	void checkPos()
+	{
+		float currentPos = GameObject.FindWithTag(GameData.usingName).transform.localPosition.x;
+		stusPosX.Clear();
+		var stuPos = GameObject.FindGameObjectsWithTag("學");
+		int count = 0;
+		foreach(var pos in stuPos)
+		{
+			stusPosX.Add(pos.transform.localPosition.x);
+			count++;
+		}
+		if(currentPos > startDetectLine)
+		{
+			for(int i = 0; i < count; i++)
+			{
+				if(currentPos > stusPosX[i]-0.25 && currentPos < stusPosX[i] + 1.75f)
+				{
+					print("In");
+					break;
+				}
+				else
+				{
+					print("Out; stusPosX：" + stusPosX[i] + "; currentPos：" + currentPos);
+					restart();
+					break;
+				}
+			}
+		}
+	}
+	
+	void restart()
+	{
+		reStart = true;
+		switch(GameData.level)
+		{
+			case 1:
+				GameObject.Destroy(GameObject.FindWithTag("我").gameObject);
+				Instantiate(me, new Vector3(-8, 1, 0), new Quaternion(0,0,0,0));
+				break;
+			case 2:
+				GameObject.Destroy(GameObject.FindWithTag("童").gameObject);
+				Instantiate(tcy, new Vector3(-8, 1.5f, 0), new Quaternion(0,0,0,0));
+				Instantiate(me, new Vector3(-8, 1, 0), new Quaternion(0,0,0,0));
+				break;
+			case 3:
+				GameObject.Destroy(GameObject.FindWithTag("瑞").gameObject);
+				Instantiate(me, new Vector3(-8, 1, 0), new Quaternion(0,0,0,0));
+				Instantiate(tcy, new Vector3(-8, 1.5f, 0), new Quaternion(0,0,0,0));
+				Instantiate(ray, new Vector3(-8, 2, 0), new Quaternion(0,0,0,0));
+				break;
+			case 4:
+				GameObject.Destroy(GameObject.FindWithTag("摯").gameObject);
+				Instantiate(me, new Vector3(-8, 1, 0), new Quaternion(0,0,0,0));
+				Instantiate(tcy, new Vector3(-8, 1.5f, 0), new Quaternion(0,0,0,0));
+				Instantiate(ray, new Vector3(-8, 2, 0), new Quaternion(0,0,0,0));
+				Instantiate(firend, new Vector3(-8, 2.5f, 0), new Quaternion(0,0,0,0));
+				break;
+		}
+		GameData.level = 1;
+		GameData.usingName = "我";
+		sysHintText.text = "哇~!被教官看到囉~重新開始吧!";
+		sysHint.SetActive(true);
+		pressToContinue.SetActive(true);
+		openPressToContinue = true;
+	}
+	
 	void move()
 	{
 		if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
