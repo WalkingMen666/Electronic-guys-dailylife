@@ -8,6 +8,7 @@ public class Plot_Five : MonoBehaviour
 	
 	void Start()
 	{
+		GameData.enterHallway2 = true;
 		StartCoroutine(fadeTest(""));
 	}
 	

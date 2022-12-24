@@ -60,6 +60,8 @@ static class GameData
 	public static int level = 1;
 	/// 躲教官遊戲使用角色名稱
 	public static string usingName = "";
+	/// 進入走廊二
+	public static bool enterHallway2 = false;
 	
 	public static void reset()
 	{

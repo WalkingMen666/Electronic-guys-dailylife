@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1178293544170781773}
   m_Layer: 0
   m_Name: MusicCube
-  m_TagString: sound
+  m_TagString: music
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

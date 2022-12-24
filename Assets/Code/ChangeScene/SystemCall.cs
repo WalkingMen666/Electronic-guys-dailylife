@@ -32,7 +32,7 @@ public class SystemCall : MonoBehaviour
 	public static void changeScene_Sub()
 	{
 		// sceneAsync_Sub.allowSceneActivation = true;
-		if(SceneManager.GetActiveScene().buildIndex == 7) SceneManager.LoadScene(sceneNum - 2);
+		if(SceneManager.GetActiveScene().buildIndex == 7 || SceneManager.GetActiveScene().buildIndex == 5) SceneManager.LoadScene(sceneNum - 2);
 		else SceneManager.LoadScene(sceneNum - 1);
 	}
 }

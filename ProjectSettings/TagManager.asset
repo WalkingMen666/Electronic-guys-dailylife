@@ -92,6 +92,7 @@ TagManager:
   - "\u6559"
   - "\u745E"
   - sound
+  - music
   layers:
   - Default
   - TransparentFX

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DontDestroyMusic : MonoBehaviour
 {
-    void Start()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
+	void Start()
+	{
+		DontDestroyOnLoad(this.gameObject);
+	}
 }
