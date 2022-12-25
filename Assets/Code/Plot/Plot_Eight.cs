@@ -10,8 +10,11 @@ public class Plot_Eight : MonoBehaviour
 	
 	void Start()
 	{
-		illustrate.SetActive(true);
-		openillustrate = true;
+		if(!GameData.openCalculationMode)
+		{
+			illustrate.SetActive(true);
+			openillustrate = true;	
+		}
 	}
 	void LateUpdate()
 	{

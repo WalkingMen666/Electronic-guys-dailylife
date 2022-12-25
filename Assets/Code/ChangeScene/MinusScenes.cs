@@ -44,6 +44,12 @@ public class MinusScenes : MonoBehaviour
 					GameData.PlayerPos = new Vector3(Pos.y - 3.5f, -2.5f, 0);
 				}
 				break;
+			case 7:
+				GameData.PlayerPos = new Vector3(8f, Pos.y, 0);
+				break;
+			case 8:
+				GameData.PlayerPos = new Vector3(Pos.y + 4f, -2.5f, 0);
+				break;
 		}
 	}
 }

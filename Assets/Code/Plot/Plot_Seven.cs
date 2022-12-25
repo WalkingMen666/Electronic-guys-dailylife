@@ -38,15 +38,29 @@ public class Plot_Seven : MonoBehaviour
 	
 	void Start()
 	{
-		if (GameData.finishSecondPlotInFactory && !GameData.finishAllQue)
+		if(GameData.teacherFinishDialog)
+		{
+			GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Play();
+			GameObject.FindGameObjectWithTag("師").transform.localPosition = teacherTargetPos;
+			GameObject.FindGameObjectWithTag("我").transform.localPosition = GameData.PlayerPos;
+			finishFirstPlot = true;
+		}
+		else if (GameData.finishSecondPlotInFactory && !GameData.finishAllQue && !GameData.finishFirstPlotInFactory)
 		{
 			GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Play();
 			GameObject.FindWithTag("師").transform.localPosition = teacherTargetPos;
 			GameObject.Find("我").transform.localPosition = targetPos;
 			finishFirstPlot = true;
 		}
+		else if(GameData.finishFirstPlotInFactory)
+		{
+			GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Play();
+			GameObject.FindWithTag("師").transform.localPosition = teacherTargetPos;
+			GameObject.FindGameObjectWithTag("我").transform.localPosition = GameData.PlayerPos;
+			finishFirstPlot = true;
+		}
 		else if (!GameData.teacherFinishDialog)
-        {
+		{
 			charsPerSecond = Mathf.Max(0.1f, charsPerSecond);
 			dialogBoxText.text = "";
 			timer = 0;
@@ -63,7 +77,6 @@ public class Plot_Seven : MonoBehaviour
 			isActive = true;
 			async = SceneManager.LoadSceneAsync(10);
 			async.allowSceneActivation = false;
-			print(GameData.finishSecondPlotInFactory);
 		}
 	}
 	void Update()
@@ -80,6 +93,7 @@ public class Plot_Seven : MonoBehaviour
 						dialogBox.SetActive(false);
 						isActive = false;
 						GameData.openMeMove = true;
+						GameData.finishFirstPlotInFactory = true;
 						finishFirstPlot = true;
 						GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Play();
 					}
@@ -200,6 +214,7 @@ public class Plot_Seven : MonoBehaviour
 		showText = "";
 		hint.SetActive(false);
 		dialogBox.SetActive(false);
+		GameData.teacherFinishDialog = true;
 		Invoke("zoomin", 0.5f);
 	}
 	void wait()

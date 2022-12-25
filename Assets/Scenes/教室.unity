@@ -12705,6 +12705,14 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 519420034}
+    - target: {fileID: 1238874855912485575, guid: 711cf92a98e8f424fafa16b4a2f10655, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238874855912485575, guid: 711cf92a98e8f424fafa16b4a2f10655, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1238874856203749746, guid: 711cf92a98e8f424fafa16b4a2f10655, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -12717,6 +12725,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 519420033}
+    - target: {fileID: 4402548305843425574, guid: 711cf92a98e8f424fafa16b4a2f10655, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4402548306437743653, guid: 711cf92a98e8f424fafa16b4a2f10655, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -12812,6 +12824,26 @@ PrefabInstance:
     - target: {fileID: 4402548306437743674, guid: 711cf92a98e8f424fafa16b4a2f10655, type: 3}
       propertyPath: m_SortingOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387360440659393788, guid: 711cf92a98e8f424fafa16b4a2f10655, type: 3}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387360440659393788, guid: 711cf92a98e8f424fafa16b4a2f10655, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387360440659393788, guid: 711cf92a98e8f424fafa16b4a2f10655, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387360440659393788, guid: 711cf92a98e8f424fafa16b4a2f10655, type: 3}
+      propertyPath: m_Color.r
+      value: 0.69411767
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387360440659393789, guid: 711cf92a98e8f424fafa16b4a2f10655, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 711cf92a98e8f424fafa16b4a2f10655, type: 3}

@@ -35,7 +35,7 @@ public class VolumeSlider : MonoBehaviour
 				musicInstant.tag = "sound";	
 				break;
 			case 1:
-				Destroy(GameObject.FindGameObjectWithTag("sound").gameObject);
+				if(GameObject.FindGameObjectWithTag("sound") != null) Destroy(GameObject.FindGameObjectWithTag("sound").gameObject);
 				musicInstant = GameObject.FindGameObjectWithTag("music");
 				musicInstant.tag = "sound";	
 				break;
@@ -46,30 +46,35 @@ public class VolumeSlider : MonoBehaviour
 				}
 				else
 				{
-					Destroy(GameObject.FindGameObjectWithTag("sound").gameObject);
+					if(GameObject.FindGameObjectWithTag("sound") != null) Destroy(GameObject.FindGameObjectWithTag("sound").gameObject);
 					musicInstant = GameObject.FindGameObjectWithTag("music");
 					musicInstant.tag = "sound";	
 				}
 				break;
-			case 5:
-				if(GameData.enterHallway2)
+			case 6:
+				if(GameObject.FindGameObjectWithTag("sound") != null) Destroy(GameObject.FindGameObjectWithTag("sound").gameObject);
+				musicInstant = GameObject.FindGameObjectWithTag("music");
+				musicInstant.tag = "sound";	
+				break;
+			case 7:
+				if(!GameData.finishFirstPlotInFactory)
 				{
-					Destroy(GameObject.FindGameObjectWithTag("music"));
+					if(GameObject.FindGameObjectWithTag("sound") != null) Destroy(GameObject.FindGameObjectWithTag("sound").gameObject);
+					musicInstant = GameObject.FindGameObjectWithTag("music");
+					musicInstant.tag = "sound";	
 				}
 				else
 				{
-					Destroy(GameObject.FindGameObjectWithTag("sound").gameObject);
-					musicInstant = GameObject.FindGameObjectWithTag("music");
-					musicInstant.tag = "sound";	
+					if(GameObject.FindGameObjectWithTag("music") != null) Destroy(GameObject.FindGameObjectWithTag("music").gameObject);
 				}
 				break;
 			case 10:
-				Destroy(GameObject.FindGameObjectWithTag("sound").gameObject);
+				if(GameObject.FindGameObjectWithTag("sound") != null) Destroy(GameObject.FindGameObjectWithTag("sound").gameObject);
 				musicInstant = GameObject.FindGameObjectWithTag("music");
 				musicInstant.tag = "sound";	
 				break;
 			case 11:
-				Destroy(GameObject.FindGameObjectWithTag("sound").gameObject);
+				if(GameObject.FindGameObjectWithTag("sound") != null) Destroy(GameObject.FindGameObjectWithTag("sound").gameObject);
 				musicInstant = GameObject.FindGameObjectWithTag("music");
 				musicInstant.tag = "sound";
 				break;

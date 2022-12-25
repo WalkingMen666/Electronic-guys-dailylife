@@ -49,6 +49,7 @@ public class NewBreadBoard : MonoBehaviour
 	float[] tempResArray = new float[4]{0,0,0,0};								// 暫存電阻選擇陣列
 	List<float> breadBoardRes = new List<float>();								// 麵包板電阻列表
 	List<float> resArray = new List<float>();									// 電阻儲存列表
+	List<float> backUpBreadBoardRes = new List<float>();						// 計算模式儲存原麵包板電阻列表
 	Dictionary<float, float> resNeedToPut = new Dictionary<float, float>();		// 需要放的電阻(電阻大小,電阻數量)
 	Dictionary<float, float> resHadPut = new Dictionary<float, float>();		// 已經放的電阻(電阻大小,電阻數量)
 	List<Dictionary<List<float>,List<float>>> tb = new List<Dictionary<List<float>, List<float>>>();	// 淘寶
@@ -109,7 +110,8 @@ public class NewBreadBoard : MonoBehaviour
 				correctAnswer = false;
 				GameObject.Find("Pause").GetComponent<PopBox>().hidePop(sysHint);
 				PopBox.sysBoardIsOpen = false;
-				resHadPut.Clear();
+				// resHadPut.Clear();
+				clear();
 			}	
 		}
 	}
@@ -314,17 +316,17 @@ public class NewBreadBoard : MonoBehaviour
 			clear();
 		}
 		else
-		{
+		{	
+			backUpBreadBoardRes.Clear();
+			foreach(var f in breadBoardRes) backUpBreadBoardRes.Add(f);
 			Calculation(breadBoardRes, tb);		// 處理計算
-			// print(tb[0].Count);
-			// if(tb[0].Count != 0)
-			// 	StringProcess(breadBoardRes, tb);	// 處理算式
 			StringProcess(breadBoardRes, tb);	// 處理算式
 			targetText.text = "答案為：" + breadBoardRes[0];
 			if(show.Equals("")) show += breadBoardRes[0];	// 如果只有一顆電阻，直接回傳答案
 			resLimitText.text = "運算式為：" + show;
-			print(show);
 			show = "";
+			breadBoardRes.Clear();
+			foreach(var f in backUpBreadBoardRes) breadBoardRes.Add(f);
 		}
 	}
 	void showSysBoard()

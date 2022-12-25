@@ -66,6 +66,7 @@ public class PopBox : MonoBehaviour
 	public void backtoMain()
 	{
 		GameData.reset();
+		Destroy(GameObject.FindGameObjectWithTag("sound").gameObject);
 		Debug.Log("回到主選單");
 		SceneManager.LoadScene(0);
 	}

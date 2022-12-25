@@ -47,6 +47,8 @@ public class GameData_Backup : MonoBehaviour
 	public static int resLevel = 1;
 	/// 電阻限用數量
 	public static string resLimit;
+	/// 工廠內第一段劇情完成
+	public static bool finishFirstPlotInFactory = false;
 	///工廠內第二段劇情完成
 	public static bool finishSecondPlotInFactory = false;
 	/// 完成所有電阻題目
@@ -59,4 +61,6 @@ public class GameData_Backup : MonoBehaviour
 	public static int level = 1;
 	/// 躲教官遊戲使用角色名稱
 	public static string usingName = "";
+	/// 完成躲教官遊戲
+	public static bool finishHideAndSeek = false;
 }

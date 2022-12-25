@@ -50,6 +50,8 @@ static class GameData
 	public static string resLimit;
 	/// 完成所有電阻題目
 	public static bool finishAllQue = false;
+	/// 工廠內第一段劇情完成
+	public static bool finishFirstPlotInFactory = false;
 	///工廠內第二段劇情完成
 	public static bool finishSecondPlotInFactory = false;
 	/// 工廠最後老師說完話
@@ -62,6 +64,9 @@ static class GameData
 	public static string usingName = "";
 	/// 進入走廊二
 	public static bool enterHallway2 = false;
+	/// 完成躲教官遊戲
+	public static bool finishHideAndSeek = false;
+	
 	
 	public static void reset()
 	{
@@ -91,6 +96,8 @@ static class GameData
 		level = GameData_Backup.level;
 		usingName = GameData_Backup.usingName;
 		finishSecondPlotInFactory = GameData_Backup.finishSecondPlotInFactory;
+		finishHideAndSeek = GameData_Backup.finishHideAndSeek;
+		finishFirstPlotInFactory = GameData_Backup.finishFirstPlotInFactory;
 	}
 
 }

@@ -18,34 +18,36 @@ public class Move_For_PlotSix : MonoBehaviour
 	
 	void Start()
 	{
-		gameObjectName = gameObject.transform.tag;
-		nowPos = gameObject.transform.localPosition;
-		changePos();
+		if(!GameData.finishPlotSix)
+		{
+			gameObjectName = gameObject.transform.tag;
+			nowPos = gameObject.transform.localPosition;
+			changePos();	
+		}
 	}
 	
 	void Update()
 	{
-		if(openMove && Time.time >= moveTick)
+		if(!GameData.finishPlotSix)
 		{
-			nowPos = this.gameObject.transform.localPosition;
-			move();
-			moveTick = Time.time + 0.15f;
+			if(openMove && Time.time >= moveTick)
+			{
+				nowPos = this.gameObject.transform.localPosition;
+				move();
+				moveTick = Time.time + 0.15f;
+			}
+			if(openJumpEffect && !openMove && !jumping)
+			{
+				if(gameObjectName == "童") jumpTimer = Time.time + 0.05f;
+				if(gameObjectName == "瑞") jumpTimer = Time.time + 0.1f;
+				else jumpTimer = Time.time;
+				nowPos = this.gameObject.transform.localPosition;
+				jumping = true;
+				jump();
+			}
+			if(jumping) jump();
+			if(!openMove && nowPos.y == endPos.y) Destroy(gameObject);
 		}
-		else if(!openMove && GameData.allDone_PlotSix == 3) // 瑞加入後要改成3
-		{
-			Plot_Six.openMeDialog = true;
-		}
-		if(openJumpEffect && !openMove && !jumping)
-		{
-			if(gameObjectName == "童") jumpTimer = Time.time + 0.05f;
-			if(gameObjectName == "瑞") jumpTimer = Time.time + 0.1f;
-			else jumpTimer = Time.time;
-			nowPos = this.gameObject.transform.localPosition;
-			jumping = true;
-			jump();
-		}
-		if(jumping) jump();
-		if(!openMove && nowPos.y == endPos.y) Destroy(gameObject);
 	}
 	
 	void move()
@@ -57,6 +59,7 @@ public class Move_For_PlotSix : MonoBehaviour
 			openMove = false;
 			GameData.allDone_PlotSix++;
 			GameData.openMeMove = true;
+			GameData.finishPlotSix = true;
 		}
 		this.gameObject.transform.localPosition = nowPos;
 	}

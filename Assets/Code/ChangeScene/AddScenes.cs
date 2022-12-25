@@ -57,14 +57,7 @@ public class AddScenes : MonoBehaviour
 				GameData.PlayerPos = new Vector3(-8f, Pos.y, 0);
 				break;
 			case 7:
-				if(Pos.x > 0)
-				{
-					GameData.PlayerPos = new Vector3(-6.5f, Pos.x - 4, 0);
-				}
-				if(Pos.x < 0)
-				{
-					GameData.PlayerPos = new Vector3(-6.5f, Pos.x + 3.5f, 0);
-				}
+				GameData.PlayerPos = new Vector3(-6.5f, Pos.x - 4, 0);
 				break;
 		}
 	}

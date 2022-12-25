@@ -47,7 +47,7 @@ public class HideAndSeek : MonoBehaviour
 	
 	void Update()
 	{
-		if(openGameIntroduce && Input.GetKeyDown(KeyCode.Escape))
+		if(openGameIntroduce && Input.GetKeyDown(KeyCode.Space))
 		{
 			openGameIntroduce = false;
 			gameIntroduce.SetActive(false);
@@ -70,10 +70,12 @@ public class HideAndSeek : MonoBehaviour
 				if(GameData.level >= 4)
 				{
 					sysHintText.text = "恭喜完成所有關卡!!";
+					GameData.finishHideAndSeek = true;
 				}
 				else sysHintText.text = "恭喜完成第"+GameData.level.ToString()+"關卡";
 				pressToContinue.SetActive(true);
 				openPressToContinue = true;
+				GameObject.FindGameObjectWithTag("教官").transform.localPosition = new Vector3(-5.5f, -3, 0);
 			}
 			if(openPressToContinue)
 			{
@@ -127,16 +129,10 @@ public class HideAndSeek : MonoBehaviour
 			{
 				if(currentPos > stusPosX[i]-0.25 && currentPos < stusPosX[i] + 1.75f)
 				{
-					print("In");
-					break;
-				}
-				else
-				{
-					print("Out; stusPosX：" + stusPosX[i] + "; currentPos：" + currentPos);
-					restart();
-					break;
+					return;
 				}
 			}
+			restart();
 		}
 	}
 	
@@ -171,6 +167,7 @@ public class HideAndSeek : MonoBehaviour
 		GameData.level = 1;
 		GameData.usingName = "我";
 		sysHintText.text = "哇~!被教官看到囉~重新開始吧!";
+		GameObject.FindGameObjectWithTag("教官").transform.localPosition = new Vector3(-5.5f, -3, 0);
 		sysHint.SetActive(true);
 		pressToContinue.SetActive(true);
 		openPressToContinue = true;
@@ -178,6 +175,7 @@ public class HideAndSeek : MonoBehaviour
 	
 	void move()
 	{
+		Vector3 currentPos = GameObject.FindGameObjectWithTag(GameData.usingName).transform.localPosition;
 		if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
 		{
 			GameObject.FindWithTag(GameData.usingName).transform.localPosition += characterMoveSpeed * Time.deltaTime;
@@ -185,6 +183,14 @@ public class HideAndSeek : MonoBehaviour
 		if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
 		{
 			GameObject.FindWithTag(GameData.usingName).transform.localPosition -= characterMoveSpeed * Time.deltaTime;
+		}
+		if(currentPos.x > startDetectLine + 0.5f)
+		{
+			GameObject.FindGameObjectWithTag("教官").transform.localPosition = new Vector3(currentPos.x, -3, 0);
+		}
+		if(currentPos.x < -8.5f)
+		{
+			GameObject.FindWithTag(GameData.usingName).transform.localPosition = new Vector3(-8.5f, currentPos.y, 0);
 		}
 	}
 	void changeUsingCharacter()

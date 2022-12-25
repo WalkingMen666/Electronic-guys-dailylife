@@ -9,6 +9,8 @@ public class Plot_Nine : MonoBehaviour
 	[Header("劇情")]
 	public TextAsset dialogFile;
 	public Text hint;
+	public AudioSource Newmusic;
+	public AudioSource Originalmusic;
 	
 	[Header("UI物件")]
 	public GameObject a1;  //考
@@ -324,6 +326,8 @@ public class Plot_Nine : MonoBehaviour
 		changewords();
 		async = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
 		async.allowSceneActivation = false;
+		Newmusic = GameObject.Find("Plot").GetComponent<AudioSource>();
+		Originalmusic = GameObject.Find("MusicCube").GetComponent<AudioSource>();
 	}
 
 	void Update()
@@ -1268,6 +1272,11 @@ public class Plot_Nine : MonoBehaviour
 			if(showQueue[showQueue.Count - queueCount] == a5) wordTickNum = 0.3f;
 			else if(showQueue[showQueue.Count - queueCount] == a44) wordTickNum = 1f;
 			else wordTickNum = 0.1f;
+			if(showQueue[showQueue.Count - queueCount] == a44) 
+			{
+				Newmusic.Play();
+				Originalmusic.Stop();
+			}
 			clone.tag = "clone";
 			startPos.x += wordGap_X;
 			queueCount--;

@@ -27,6 +27,7 @@ public class Plot_Six : MonoBehaviour
 	{
 		if(!GameData.finishPlotSix)
 		{
+			GameObject.FindGameObjectWithTag("我").transform.localPosition = new Vector3(-8, 0, 0);
 			charsPerSecond = Mathf.Max(0.1f, charsPerSecond);
 			dialogBoxText.text = "";
 			timer = 0;
@@ -35,6 +36,13 @@ public class Plot_Six : MonoBehaviour
 			changeDialog();
 			dialogBox.SetActive(true);
 			isActive = true;
+		}
+		else
+		{
+			GameObject.Find("摯").transform.localPosition = new Vector3(7.5f, -5.5f, 0);
+			GameObject.Find("童").transform.localPosition = new Vector3(7.5f, -6f, 0);
+			GameObject.Find("瑞").transform.localPosition = new Vector3(7.5f, -5f, 0);
+			GameObject.Find("我").transform.localPosition = GameData.PlayerPos;
 		}
 	}
 	void Update()
@@ -70,14 +78,6 @@ public class Plot_Six : MonoBehaviour
 				isActive = true;
 				OnStartWriter();
 			}
-		}
-		else
-		{
-			GameObject.Find("摯").transform.localPosition = new Vector3(7.5f, -5.5f, 0);
-			GameObject.Find("童").transform.localPosition = new Vector3(7.5f, -6f, 0);
-			GameObject.Find("瑞").transform.localPosition = new Vector3(7.5f, -5f, 0);
-			GameObject.Find("我").transform.localPosition = new Vector3(7.5f, -2.5f, 0);
-			GameData.PlayerPos = new Vector3(7.5f, -2.5f, 0);
 		}
 	}
 	

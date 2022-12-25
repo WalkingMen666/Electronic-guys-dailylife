@@ -34,16 +34,27 @@ public class Plot_Three : MonoBehaviour
 	{
 		if(!GameData.Plot2_CloseDialog)
 		{
-			bestFriend.transform.localPosition = GameObject.Find("我").transform.localPosition - new Vector3(0.5f, 0, 0);
-			if(GameObject.Find("我").transform.position.y > -6) firendTargetPos.y = GameObject.Find("我").transform.localPosition.y + 5.5f;
-			else firendTargetPos.y = GameObject.Find("我").transform.localPosition.y + 9.5f;
 			timer = 0;
 			isActive = false;
 			charsPerSecond = Mathf.Max(0.1f, charsPerSecond);
 			dialogBoxText.text = "";
-			Invoke("dialog",0.5f);
 			GameData.openMeMove = false;	
 			GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Stop();
+			if(GameObject.Find("我").transform.position.y > -6) 
+			{
+				firendTargetPos.y = GameObject.Find("我").transform.localPosition.y + 5.5f;
+				bestFriend.transform.localPosition = new Vector3(3, -5, 0);
+				bestFriend = GameObject.Find("摯");
+				Destroy(GameObject.Find("摯 (1)").gameObject);
+			}
+			else 
+			{
+				firendTargetPos.y = GameObject.Find("我").transform.localPosition.y + 9.5f;
+				bestFriend.transform.localPosition = new Vector3(3, -14, 0);
+				bestFriend = GameObject.Find("摯 (1)");
+				Destroy(GameObject.Find("摯").gameObject);
+			}
+			Invoke("dialog",0.5f);
 		}
 	}
 

@@ -29,7 +29,7 @@ public class ZoomIn : MonoBehaviour
 			cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 5, speed);
 			cam.transform.position = Vector3.Lerp(cam.transform.position, Target[0], speed);
 		}
-		if(cam.orthographicSize <= 0.01176) 
+		if(cam.orthographicSize <= 0.0117) 
 		{
 			print("ChangeScene");
 			// async.allowSceneActivation = true;

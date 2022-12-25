@@ -57,6 +57,7 @@ public class ME : MonoBehaviour
 		{
 			GameData.closeHint = true;
 			if(SceneManager.GetActiveScene().buildIndex == 3) AddScenes.goToNextScene = true;
+			if(SceneManager.GetActiveScene().buildIndex == 2) GameObject.FindGameObjectWithTag("摯").transform.localPosition = new Vector3(-8, -4, 0);
 		}
 		if (other.tag != "台" && other.tag != "門1" && other.tag != "垃" &&　other.tag != "蟲")
 		{
@@ -345,12 +346,10 @@ public class ME : MonoBehaviour
 	}
 	void goPlotFive()
 	{
-		if(SceneManager.GetActiveScene().buildIndex == 5)
+		if(SceneManager.GetActiveScene().buildIndex == 5 && !GameData.finishHideAndSeek)
 		{
-			Vector3 Pos = this.gameObject.transform.position;
-			if(Pos.x >= -4)
+			if(this.gameObject.transform.position.x >= -4)
 			{
-				Destroy(this.gameObject);
 				GameData.openMeMove = false;
 				SystemCall.changeScene_Add();
 			}	
@@ -389,11 +388,11 @@ public class ME : MonoBehaviour
 				GameData.minPosX = -10.5f;
 				GameData.maxPosY = 4.5f;
 				GameData.minPosY = -4.5f;
-				GameData.PlayerPos = new Vector3(-10, -0.5f, 0);
+				if(!GameData.finishHideAndSeek) GameData.PlayerPos = new Vector3(-10, -0.5f, 0);
 				GameData.closeHint = true;
 				GameData.openMeMove = true;
 				hintName = "";
-				thingsToDo.text = "";
+				thingsToDo.text = "繼續前進~!";
 				break;
 			case 7:
 				GameData.maxPosX = 8.5f;
@@ -403,7 +402,6 @@ public class ME : MonoBehaviour
 				GameData.closeHint = true;
 				hintName = "";
 				thingsToDo.text = "進工廠準備考試吧!";
-				GameData.PlayerPos = new Vector3(-8, 0, 0);
 				break;
 			case 8:
 				GameData.maxPosX = 8.5f;
@@ -414,7 +412,6 @@ public class ME : MonoBehaviour
 				hintName = "";
 				thingsToDo.text = "到座位上準備考試吧";
 				if (!GameData.finishSecondPlotInFactory) GameData.PlayerPos = new Vector3(-6.5f, 3.5f, 0);
-				else GameData.PlayerPos = new Vector3(-4.5f, 1f, 0);
 				GameData.openMeMove = false;
 				break;
 			default:
@@ -568,6 +565,12 @@ public class ME : MonoBehaviour
 				break;
 			case "械":
 				showText = "...這裡甚麼都沒有";
+				break;
+			case "洗":
+				showText = "拿來洗東西的地方，欸欸欸，可別在這洗澡欸";
+				break;
+			case "梯":
+				showText = "電梯?樓梯??手扶梯???";
 				break;
 		}
 		if(GameData.textTouchName != "Untagged")

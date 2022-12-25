@@ -11,6 +11,7 @@ public class SwitchScenesTo1GameStart : MonoBehaviour
 	Coroutine c = null;
 	public GameObject pausePanel;
 	public GameObject gameMode;
+	public GameObject operatePanel;
 	public int choice = 1;
 	int Press = 0;
 
@@ -33,13 +34,13 @@ public class SwitchScenesTo1GameStart : MonoBehaviour
 		if(Press == 0)
 		{
 			Vector3 Pos = gameObject.transform.localPosition;
-			if (Input.GetKeyDown(KeyCode.S) && choice < 3)
+			if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && choice < 3)
 			{
 				GameObject.Find("我").transform.position -= new Vector3(0, 2.0f, 0);
 				choice++;
 				chooseSound.Play();
 			}
-			else if (Input.GetKeyDown(KeyCode.W) && choice > 1)
+			else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) && choice > 1)
 			{
 				GameObject.Find("我").gameObject.transform.position += new Vector3(0, 2.0f, 0);
 				choice--;
@@ -55,7 +56,6 @@ public class SwitchScenesTo1GameStart : MonoBehaviour
 			if (choice == 1)
 			{
 				chooseGameMode();
-				print("Hello");
 			}
 			else if (choice == 2)
 			{
@@ -115,5 +115,27 @@ public class SwitchScenesTo1GameStart : MonoBehaviour
 	{
 		GameData.openCalculationMode = true;
 		SceneManager.LoadScene(9);
+	}
+	public void openOperatePanel()
+	{
+		operatePanel.SetActive(true);
+	}
+	public void closeOperatePanel()
+	{
+		operatePanel.SetActive(false);
+	}
+	public void openStartPanel()
+	{
+		choice = 1;
+		Press = 1;
+		gameMode.SetActive(true);
+		GameObject.Find("Pause").GetComponent<PopBox>().showPop(gameMode);
+	}
+	public void openSetting()
+	{
+		choice = 2;
+		Press = 1;
+		pausePanel.SetActive(true);
+		GameObject.Find("Pause").GetComponent<PopBox>().showPop(pausePanel);
 	}
 }
