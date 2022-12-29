@@ -40,8 +40,9 @@ public class SwitchScenesTo1GameStart : MonoBehaviour
 				choice++;
 				chooseSound.Play();
 			}
-			else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) && choice > 1)
+			else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && choice > 1)
 			{
+				
 				GameObject.Find("我").gameObject.transform.position += new Vector3(0, 2.0f, 0);
 				choice--;
 				chooseSound.Play();

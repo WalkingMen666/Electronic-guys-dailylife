@@ -40,21 +40,26 @@ public class Plot_Three : MonoBehaviour
 			dialogBoxText.text = "";
 			GameData.openMeMove = false;	
 			GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Stop();
-			if(GameObject.Find("我").transform.position.y > -6) 
+			if(GameData.PlayerPos.y > -6) 
 			{
-				firendTargetPos.y = GameObject.Find("我").transform.localPosition.y + 5.5f;
+				firendTargetPos.y = GameData.PlayerPos.y + 5.5f;
 				bestFriend.transform.localPosition = new Vector3(3, -5, 0);
 				bestFriend = GameObject.Find("摯");
 				Destroy(GameObject.Find("摯 (1)").gameObject);
 			}
 			else 
 			{
-				firendTargetPos.y = GameObject.Find("我").transform.localPosition.y + 9.5f;
+				firendTargetPos.y = GameData.PlayerPos.y + 9.5f;
 				bestFriend.transform.localPosition = new Vector3(3, -14, 0);
 				bestFriend = GameObject.Find("摯 (1)");
 				Destroy(GameObject.Find("摯").gameObject);
 			}
 			Invoke("dialog",0.5f);
+		}
+		else
+		{
+			Destroy(GameObject.Find("摯 (1)").gameObject);
+			GameObject.Find("摯").transform.position = new Vector3(8, 20f, 0);
 		}
 	}
 
@@ -114,7 +119,6 @@ public class Plot_Three : MonoBehaviour
 	
 	void jumpHint()
 	{
-		print(Time.time);
 		if (Time.time > meJumpTimer)
 		{
 			if (Time.time <= meJumpTimer + 0.2f)
@@ -136,7 +140,7 @@ public class Plot_Three : MonoBehaviour
 	
 	void dialog()
 	{
-		showText = "摯：等等到電梯的路上會經過製圖和室設，你這色鬼別一直偷看其他班的女生阿~ 我要先去電梯那邊的廁所，不要讓我等你喔";
+		showText = "摯：等等到電梯的路上會經過製圖和室設，你這色鬼別一直偷看其他班的女生阿~ 我要先去電梯那邊的廁所，不要讓我等";
 		isActive = true;
 		dialogBox.SetActive(true);
 		OnStartWriter();

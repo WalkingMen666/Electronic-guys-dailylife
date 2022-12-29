@@ -19,11 +19,11 @@ public class NewElevator : MonoBehaviour
 	public static AsyncOperation async;
 	
 	[Header("變數")]
-	Vector3 moveSpeed = new Vector3(0, 3, 0);		// 電梯速度
+	Vector3 moveSpeed = new Vector3(0, 5, 0);		// 電梯速度
 	Vector3 targetPos = new Vector3(0, -40, 0);		// 停止位置
 	Vector3 fasterPos = new Vector3(0, 18, 0);		// 漸加速停止位置
 	Vector3 slowerPos = new Vector3(0, -16.5f, 0);	// 漸減速停止位置
-	float destroyTime = 1f;
+	float destroyTime = 0.5f;
 	int count = 0;
 	
 	void Start()
@@ -52,10 +52,10 @@ public class NewElevator : MonoBehaviour
 			{
 				dingSound.Play();
 				count++;
-				destroyTime = Time.time + 1f;
+				destroyTime = Time.time + 0.5f;
 				return;
 			}
-			destroyTime = Time.time + 1f;
+			destroyTime = Time.time + 0.5f;
 			switch(count)
 			{
 				case 1:

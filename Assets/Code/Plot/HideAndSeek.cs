@@ -71,6 +71,7 @@ public class HideAndSeek : MonoBehaviour
 				{
 					sysHintText.text = "恭喜完成所有關卡!!";
 					GameData.finishHideAndSeek = true;
+					GameData.finishPlotSix = false;
 				}
 				else sysHintText.text = "恭喜完成第"+GameData.level.ToString()+"關卡";
 				pressToContinue.SetActive(true);

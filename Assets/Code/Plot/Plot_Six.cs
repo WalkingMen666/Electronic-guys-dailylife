@@ -27,14 +27,14 @@ public class Plot_Six : MonoBehaviour
 	{
 		if(!GameData.finishPlotSix)
 		{
-			GameObject.FindGameObjectWithTag("我").transform.localPosition = new Vector3(-8, 0, 0);
+			GameObject.Find("我").transform.position = new Vector3(-7.5f, 0, 0);
 			charsPerSecond = Mathf.Max(0.1f, charsPerSecond);
 			dialogBoxText.text = "";
 			timer = 0;
+			dialogBox.SetActive(true);
 			GameData.openMeMove = false;
 			GetDialogText(dialogFile);
 			changeDialog();
-			dialogBox.SetActive(true);
 			isActive = true;
 		}
 		else
@@ -47,8 +47,12 @@ public class Plot_Six : MonoBehaviour
 	}
 	void Update()
 	{
-		if(!GameData.finishPlotSix)
+		if (!GameData.finishPlotSix)
 		{
+			if(!GameData.openMeMove) 
+			{
+				GameObject.Find("我").transform.localPosition = new Vector3(-7.5f, 0, 0);
+			}
 			if(!isActive)
 			{
 				if(Input.GetKeyDown(KeyCode.Space))

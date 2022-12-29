@@ -48,8 +48,6 @@ public class ME : MonoBehaviour
 		charsPerSecond = Mathf.Max(0.1f, charsPerSecond);
 		dialogBoxText.text = "";//獲取Text的文本信息，保存到words中，然後動態更新文本顯示內容，實現打字機的效果
 		changePlayerPos();
-		this.gameObject.transform.localPosition = GameData.PlayerPos;
-		if(GameData.exitClassroom) GameData.openMeMove = true;
 	}
 	void OnTriggerEnter2D(Collider2D other)  //colliderTrigger2D接觸判斷 要先將物件的觸發器打勾
 	{
@@ -357,7 +355,6 @@ public class ME : MonoBehaviour
 	}
 	void changePlayerPos()
 	{
-		GameObject.Find("我").transform.position = GameData.PlayerPos;
 		switch (SceneManager.GetActiveScene().buildIndex)
 		{
 			case 2:
@@ -368,6 +365,7 @@ public class ME : MonoBehaviour
 				thingsToDo.text = "去找一下摯友說話唄!";
 				hintName = "摯";
 				GameData.closeHint = false;
+				if(GameData.exitClassroom) GameData.openMeMove = true;
 				break;
 			case 3:
 				GameData.maxPosX = 8.5f;
@@ -400,6 +398,12 @@ public class ME : MonoBehaviour
 				GameData.maxPosY = 4.5f;
 				GameData.minPosY = -4.5f;
 				GameData.closeHint = true;
+				if(!GameData.finishPlotSix) 
+				{
+					GameData.openMeMove = false;
+					GameData.PlayerPos = new Vector3(-7.5f, 0, 0);
+				}
+				else GameData.openMeMove = true;
 				hintName = "";
 				thingsToDo.text = "進工廠準備考試吧!";
 				break;
@@ -419,6 +423,7 @@ public class ME : MonoBehaviour
 				break;
 		}
 		if(!GameData.closeHint) GameData.hintPos = GameObject.Find(hintName).transform.localPosition;
+		GameObject.Find("我").transform.position = GameData.PlayerPos;
 	}
 	void typeWritterEffect(string tag)
 	{

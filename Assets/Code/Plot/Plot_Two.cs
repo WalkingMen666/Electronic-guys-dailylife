@@ -370,7 +370,7 @@ public class Plot_Two : MonoBehaviour
 				openDialog = false;
 				startPos.y = 3f;
 				startPos.x = -6.5f;
-				Invoke("wait",0.5f);
+				hint.SetActive(true);
 			}
 			else
 			{
@@ -381,9 +381,5 @@ public class Plot_Two : MonoBehaviour
 				changewords();
 			}
 		}
-	}
-	void wait()
-	{
-		hint.SetActive(true);
 	}
 }

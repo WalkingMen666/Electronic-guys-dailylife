@@ -43,21 +43,26 @@ public class Plot_Seven : MonoBehaviour
 			GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Play();
 			GameObject.FindGameObjectWithTag("師").transform.localPosition = teacherTargetPos;
 			GameObject.FindGameObjectWithTag("我").transform.localPosition = GameData.PlayerPos;
+			GameData.openMeMove = false;
 			finishFirstPlot = true;
+			print("1");
 		}
-		else if (GameData.finishSecondPlotInFactory && !GameData.finishAllQue && !GameData.finishFirstPlotInFactory)
+		else if (GameData.finishSecondPlotInFactory && !GameData.finishAllQue)
 		{
 			GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Play();
 			GameObject.FindWithTag("師").transform.localPosition = teacherTargetPos;
 			GameObject.Find("我").transform.localPosition = targetPos;
+			GameData.openMeMove = true;
 			finishFirstPlot = true;
+			print("2");
 		}
-		else if(GameData.finishFirstPlotInFactory)
+		else if(GameData.finishFirstPlotInFactory && !GameData.finishSecondPlotInFactory)
 		{
 			GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Play();
-			GameObject.FindWithTag("師").transform.localPosition = teacherTargetPos;
 			GameObject.FindGameObjectWithTag("我").transform.localPosition = GameData.PlayerPos;
+			GameData.openMeMove = true;
 			finishFirstPlot = true;
+			print("3");
 		}
 		else if (!GameData.teacherFinishDialog)
 		{
@@ -77,6 +82,22 @@ public class Plot_Seven : MonoBehaviour
 			isActive = true;
 			async = SceneManager.LoadSceneAsync(10);
 			async.allowSceneActivation = false;
+			print("4");
+		}
+		if(GameData.finishAllQue)
+		{
+			async = SceneManager.LoadSceneAsync(10);
+			async.allowSceneActivation = false;
+			charsPerSecond = Mathf.Max(0.1f, charsPerSecond);
+			dialogBoxText.text = "";
+			timer = 0;
+			GetDialogText(dialogFile2);
+			GameObject.FindWithTag("師").transform.localPosition = teacherTargetPos;
+			GameObject.Find("我").transform.localPosition = targetPos;
+			changeDialog();
+			dialogBox.SetActive(true);
+			isActive = true;
+			print("5");
 		}
 	}
 	void Update()
@@ -107,7 +128,11 @@ public class Plot_Seven : MonoBehaviour
 						hint.SetActive(false);
 						OnStartWriter();
 					}
-					else OnFinish();
+					else 
+					{
+						GameData.finishSecondPlotInFactory = true;
+						OnFinish();
+					}
 				}
 				else
 				{

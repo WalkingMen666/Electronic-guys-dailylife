@@ -49,12 +49,12 @@ public class AddScenes : MonoBehaviour
 					GameData.PlayerPos = new Vector3(3.5f, -14, 0);
 				}
 				break;
-			case 3:
-				GameData.PlayerPos = new Vector3(-10f, -0.5f, 0);
-				break;
 			case 5:
 				// 之後要把ME裡的changePlayerPos case7 的 GameData.PlayerPos = new Vector3(-8, 0, 0); 刪掉
 				GameData.PlayerPos = new Vector3(-8f, Pos.y, 0);
+				break;
+			case 6:
+				GameData.PlayerPos = new Vector3(-7.5f, 0, 0);
 				break;
 			case 7:
 				GameData.PlayerPos = new Vector3(-6.5f, Pos.x - 4, 0);
