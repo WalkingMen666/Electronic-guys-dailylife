@@ -5741,6 +5741,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\u5F6D"
       objectReference: {fileID: 0}
+    - target: {fileID: 3571856937150773444, guid: 67e077daa47060d4c9258666847c81d9, type: 3}
+      propertyPath: m_TagString
+      value: "\u5F6D1"
+      objectReference: {fileID: 0}
     - target: {fileID: 6083217201941098303, guid: 67e077daa47060d4c9258666847c81d9, type: 3}
       propertyPath: m_RootOrder
       value: 19

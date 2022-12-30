@@ -79,12 +79,14 @@ public class Ending : MonoBehaviour
 		{
 			setLocation();
 		}
-		else if(Time.time >= 85 && cameraY <= -8.7f && GameObject.FindGameObjectWithTag("我").transform.position.x >= 6.25f)
+		else if(Time.time >= 87 && cameraY <= -8.7f && GameObject.FindGameObjectWithTag("我") != null && GameObject.FindGameObjectWithTag("我").transform.position.x >= 6.25f)
 		{
+			print("Time.time：" + Time.time);
 			meGoHone();
 		}
 		else if(Time.time >= 89 && GameObject.FindGameObjectWithTag("我") != null && GameObject.FindGameObjectWithTag("我").transform.localPosition.x <= 6.25f && cameraY <= -8.7f)
 		{	
+			print("Time.time：" + Time.time);
 			Plot_END.openFadeOut = true;
 			Destroy(GameObject.Find("ME").gameObject);
 		}

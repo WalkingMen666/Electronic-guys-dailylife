@@ -416,7 +416,12 @@ public class ME : MonoBehaviour
 				hintName = "";
 				thingsToDo.text = "到座位上準備考試吧";
 				if (!GameData.finishSecondPlotInFactory) GameData.PlayerPos = new Vector3(-6.5f, 3.5f, 0);
-				GameData.openMeMove = false;
+				else if(GameData.finishAllQue)
+				{
+					GameData.openMeMove = false;
+					GameData.PlayerPos = new Vector3(-4.5f, 1f, 0);
+				}
+				else GameData.openMeMove = false;
 				break;
 			default:
 				GameData.closeHint = true;
@@ -576,6 +581,12 @@ public class ME : MonoBehaviour
 				break;
 			case "梯":
 				showText = "電梯?樓梯??手扶梯???";
+				break;
+			case "彭1":
+				showText = "我的一切都給你，讓我干涉妳的人生吧!";
+				break;
+			case "瑞":
+				showText = "嗯?你問我的特色是什麼?我特色阿!";
 				break;
 		}
 		if(GameData.textTouchName != "Untagged")
