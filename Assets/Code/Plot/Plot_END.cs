@@ -25,7 +25,6 @@ public class Plot_END : MonoBehaviour
 	
 	public IEnumerator fadeTest(string s)
 	{	
-		print("GetIn");
 		SceneFader fade = Instantiate(sceneFader);
 		yield return StartCoroutine(fade.FadeIn(2.5f));
 		yield return null;

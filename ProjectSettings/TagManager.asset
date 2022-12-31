@@ -94,6 +94,7 @@ TagManager:
   - sound
   - music
   - "\u5F6D1"
+  - ResTextClone
   layers:
   - Default
   - TransparentFX

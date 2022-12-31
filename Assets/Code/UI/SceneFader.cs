@@ -23,6 +23,7 @@ public class SceneFader : MonoBehaviour
 			canvasGroup.alpha += Time.deltaTime / time;
 			yield return null;
 		}
+		if(SceneManager.GetActiveScene().buildIndex == 11 && canvasGroup.alpha >= 1) SceneManager.LoadScene(0);
 	}
 	
 	public IEnumerator FadeIn(float time)

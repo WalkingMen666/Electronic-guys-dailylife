@@ -30,6 +30,8 @@ public class NewBreadBoard : MonoBehaviour
 	public GameObject sysHint;		// 系統提示
 	public GameObject spaceHint;	// 按下Space關閉提示
 	public GameObject resInput;		// 電阻輸入視窗
+	public GameObject showResPut;	// 電阻大小放置顯示物件
+	public Text showResPutText;		// 電阻大小放置顯示文字
 	bool openSysHint;				// 開啟系統提示
 	bool firstSetRes = true;		// 第一次設定電阻
 	
@@ -45,6 +47,8 @@ public class NewBreadBoard : MonoBehaviour
 	string hintText;				// 提示文字
 	bool openHint;					// 開啟提示
 	bool openSetResWindows = false;	// 開啟設定電阻視窗
+	float tempResPutX1;				// 暫存電阻放置X1
+	float tempResPutX2;				// 暫存電阻放置X2
 	AsyncOperation async;			// 轉換場景
 	float[] tempResArray = new float[4]{0,0,0,0};								// 暫存電阻選擇陣列
 	List<float> breadBoardRes = new List<float>();								// 麵包板電阻列表
@@ -80,10 +84,10 @@ public class NewBreadBoard : MonoBehaviour
 			resArray.Clear();
 			for(int i  = 0; i < 4; i++) resArray.Add(0);
 			// 改變電阻選擇的文字
-			res0.text = resArray[0].ToString() + "KΩ";
-			res1.text = resArray[1].ToString() + "KΩ";
-			res2.text = resArray[2].ToString() + "KΩ";
-			res3.text = resArray[3].ToString() + "KΩ";
+			res0.text = resArray[0].ToString() + "Ω";
+			res1.text = resArray[1].ToString() + "Ω";
+			res2.text = resArray[2].ToString() + "Ω";
+			res3.text = resArray[3].ToString() + "Ω";
 			openHint = true;
 			resLimitText.text = "等您輸入電路";
 		}
@@ -110,18 +114,49 @@ public class NewBreadBoard : MonoBehaviour
 				correctAnswer = false;
 				GameObject.Find("Pause").GetComponent<PopBox>().hidePop(sysHint);
 				PopBox.sysBoardIsOpen = false;
-				// resHadPut.Clear();
 				clear();
 			}	
 		}
+		else
+		{
+			if(Input.anyKeyDown)
+			{
+				changeRes("");
+			}
+		}
 	}
+	
+	public void clickToChangeRes()
+	{
+		String buttonName = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
+		switch(buttonName)
+		{
+			case "Res":
+				chooseRes = 1;
+				chooseArrow.transform.localPosition = new Vector3(-450, -510, 0);
+				break;
+			case "Res (1)":
+				chooseRes = 2;
+				chooseArrow.transform.localPosition = new Vector3(-150, -510, 0);
+				break;
+			case "Res (2)":
+				chooseRes = 3;
+				chooseArrow.transform.localPosition = new Vector3(150, -510, 0);
+				break;
+			case "Res (3)":
+				chooseRes = 4;
+				chooseArrow.transform.localPosition = new Vector3(450, -510, 0);
+				break;
+		}
+	}
+	
 	public void changeRes(string s)
 	{
 		if(s == "AllClear")
 		{
 			resInputText.text = "00";
 		}
-		else if(s == "Confirm" && openSetResWindows)
+		else if(openSetResWindows && s == "Confirm")
 		{	
 			int count = 0;
 			foreach(char c in resInputText.text) if(c == '.') count++;
@@ -137,16 +172,26 @@ public class NewBreadBoard : MonoBehaviour
 				resArray.Add(tempResArray[i]);
 			}
 			// 改變電阻選擇的文字
-			res0.text = resArray[0].ToString() + "KΩ";
-			res1.text = resArray[1].ToString() + "KΩ";
-			res2.text = resArray[2].ToString() + "KΩ";
-			res3.text = resArray[3].ToString() + "KΩ";
+			res0.text = resArray[0].ToString() + "Ω";
+			res1.text = resArray[1].ToString() + "Ω";
+			res2.text = resArray[2].ToString() + "Ω";
+			res3.text = resArray[3].ToString() + "Ω";
 			resInput.SetActive(false);
 			openSetResWindows = false;
 			resInputText.text = "00";
 		}
 		else
 		{
+			if(Input.GetKeyDown(KeyCode.Alpha0) || Input.GetKeyDown(KeyCode.Keypad0)) s = "0";
+			else if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)) s = "1";
+			else if(Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2)) s = "2";
+			else if(Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3)) s = "3";
+			else if(Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4)) s = "4";
+			else if(Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5)) s = "5";
+			else if(Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6)) s = "6";
+			else if(Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7)) s = "7";
+			else if(Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Keypad8)) s = "8";
+			else if(Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Keypad9)) s = "9";
 			if(firstSetRes) 
 			{
 				resInputText.text = s;
@@ -184,6 +229,7 @@ public class NewBreadBoard : MonoBehaviour
 		resSize = resArray[chooseRes - 1];
 		if(click == 0)
 		{	
+			tempResPutX1 = Posx;
 			if(!GameData.openCalculationMode)
 			{
 				if(resHadPut.ContainsKey(resSize))
@@ -213,6 +259,7 @@ public class NewBreadBoard : MonoBehaviour
 		}
 		else
 		{
+			tempResPutX2 = Posx;
 			click = 0;
 			if(resSize != 0 || GameData.openCalculationMode)
 			{
@@ -243,7 +290,9 @@ public class NewBreadBoard : MonoBehaviour
 				return;
 			}
 			// 新增電阻
-			GameObject clone = Instantiate(ResObject, new Vector3((Posx - resDis * 100 + 50 * resDis) / 108, Posy / 108, 0), Quaternion.identity, canvas.transform);
+			GameObject clone = Instantiate(ResObject, new Vector3((Posx - 50 * resDis) / 108, Posy / 108, 0), Quaternion.identity, canvas.transform);
+			// GameObject resText = Instantiate(showResPut, new Vector3(((tempResPutX1-50*resDis)+(tempResPutX2-50*resDis))/232.5f, Posy/108, 0), Quaternion.identity, canvas.transform);
+			
 			Vector3 cloneScale = new Vector3(resScale.x * resDis * 1.5f, resScale.y, 0); // 1.5是大概
 			clone.transform.localScale = cloneScale;
 			clone.tag = "clone";
@@ -257,6 +306,7 @@ public class NewBreadBoard : MonoBehaviour
 			}
 		}
 	}
+
 	// 檢查放置的電阻是否達到要求數量
 	void checkOutOfLimit()
 	{
@@ -426,10 +476,10 @@ public class NewBreadBoard : MonoBehaviour
 				break;
 		}
 		// 改變電阻選擇的文字
-		res0.text = resArray[0].ToString() + "KΩ";
-		res1.text = resArray[1].ToString() + "KΩ";
-		res2.text = resArray[2].ToString() + "KΩ";
-		res3.text = resArray[3].ToString() + "KΩ";
+		res0.text = resArray[0].ToString() + "Ω";
+		res1.text = resArray[1].ToString() + "Ω";
+		res2.text = resArray[2].ToString() + "Ω";
+		res3.text = resArray[3].ToString() + "Ω";
 	}
 	// 改變電阻限用數量並顯示出來；新增電阻限制到哈希表
 	void changeResLimit()
@@ -438,32 +488,32 @@ public class NewBreadBoard : MonoBehaviour
 		switch(GameData.resLevel)
 		{
 			case 1:
-				GameData.resLimit = "用3個8KΩ的電阻組成24KΩ";
+				GameData.resLimit = "用3個8Ω的電阻組成24Ω";
 				hintText = "這都要用提示?請好好善用串聯，你的基電老師再哭泣";
 				resNeedToPut.Add(8,3);
 				resAnswer = 24;
 				break;
 			case 2:
-				GameData.resLimit = "用5個20KΩ的電阻組成4KΩ";
+				GameData.resLimit = "用5個20Ω的電阻組成4Ω";
 				hintText = "這都要用提示?請好好善用並聯，你的基電老師再哭泣";
 				resNeedToPut.Add(20,5);
 				resAnswer = 4;
 				break;
 			case 3:
-				GameData.resLimit = "用7個12KΩ，一個3KΩ的電阻組成10KΩ";
+				GameData.resLimit = "用7個12Ω，一個3Ω的電阻組成10Ω";
 				hintText = "【並串並】之歌~欸?你沒聽過嗎?";
 				resNeedToPut.Add(12,7);
 				resNeedToPut.Add(3,1);
 				resAnswer = 10;
 				break;
 			case 4:
-				GameData.resLimit = "用6個10KΩ的電阻組成10KΩ";
+				GameData.resLimit = "用6個10Ω的電阻組成10Ω";
 				hintText = "兩個並、兩個串，排列組合";
 				resNeedToPut.Add(10,6);
 				resAnswer = 10;
 				break;
 			case 5:
-				GameData.resLimit = "用2個20KΩ，2個30KΩ，1個50KΩ的電阻組成24KΩ";
+				GameData.resLimit = "用2個20Ω，2個30Ω，1個50Ω的電阻組成24Ω";
 				hintText = "用電橋阿!還是說你沒學過?抱歉我的錯，出太難了";
 				resNeedToPut.Add(20,2);
 				resNeedToPut.Add(30,2);
@@ -472,7 +522,7 @@ public class NewBreadBoard : MonoBehaviour
 				break;
 		}
 		resLimitText.text = GameData.resLimit;
-		targetText.text = "目標： " + resAnswer.ToString() + "KΩ";
+		targetText.text = "目標： " + resAnswer.ToString() + "Ω";
 	}
 	
 	public static void Calculation(List<float> list, List<Dictionary<List<float>, List<float>>> tb)
@@ -602,7 +652,6 @@ public class NewBreadBoard : MonoBehaviour
 			}
 			if(!deal) 
 			{
-				print("Test");
 				show += fsp[0];
 			}
 			deal = false;
@@ -626,7 +675,6 @@ public class NewBreadBoard : MonoBehaviour
 			}
 			if(!deal) 
 			{
-				print("Test2");
 				show += lsp[0];
 			}
 			deal = false;
@@ -656,7 +704,6 @@ public class NewBreadBoard : MonoBehaviour
 			}
 			if(!deal) 
 			{
-				print("Test");
 				show += fsp[0];
 			}
 			deal = false;
@@ -680,7 +727,6 @@ public class NewBreadBoard : MonoBehaviour
 			}
 			if(!deal) 
 			{
-				print("Test2");
 				show += lsp[0];
 			}
 			deal = false;

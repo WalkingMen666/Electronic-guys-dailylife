@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Ending : MonoBehaviour
 {
@@ -81,20 +82,13 @@ public class Ending : MonoBehaviour
 		}
 		else if(Time.time >= 87 && cameraY <= -8.7f && GameObject.FindGameObjectWithTag("我") != null && GameObject.FindGameObjectWithTag("我").transform.position.x >= 6.25f)
 		{
-			print("Time.time：" + Time.time);
-			meGoHone();
+			GameObject.FindGameObjectWithTag("我").transform.position -= new Vector3(1, 0, 0) * Time.deltaTime;
 		}
 		else if(Time.time >= 89 && GameObject.FindGameObjectWithTag("我") != null && GameObject.FindGameObjectWithTag("我").transform.localPosition.x <= 6.25f && cameraY <= -8.7f)
 		{	
-			print("Time.time：" + Time.time);
 			Plot_END.openFadeOut = true;
 			Destroy(GameObject.Find("ME").gameObject);
 		}
-	}
-	
-	void meGoHone()
-	{
-		GameObject.FindGameObjectWithTag("我").transform.position -= new Vector3(1, 0, 0) * Time.deltaTime;
 	}
 	
 	void setLocation()              //位置設定
