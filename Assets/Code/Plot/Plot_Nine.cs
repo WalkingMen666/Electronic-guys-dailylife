@@ -314,6 +314,7 @@ public class Plot_Nine : MonoBehaviour
 	int endDialog;                      // 結束對話編號
 	string pSpace = "/p";               // 按下空白鍵繼續
 	bool pGoDown = true;                // 偵測到/p
+	bool musicHasPlayed = false;		// 播放新音樂
 	AsyncOperation async;				// 轉換場景
 	Vector3 startPos = new Vector3(-6.5f, 3, 0);
 	List<GameObject> showQueue = new List<GameObject>();    // 對話物件list
@@ -1270,10 +1271,11 @@ public class Plot_Nine : MonoBehaviour
 		{
 			GameObject clone = Instantiate(showQueue[showQueue.Count - queueCount], startPos, Quaternion.Euler(0, 0, 0));
 			if(showQueue[showQueue.Count - queueCount] == a5) wordTickNum = 0.3f;
-			else if(showQueue[showQueue.Count - queueCount] == a44) wordTickNum = 1f;
+			else if(showQueue[showQueue.Count - queueCount] == a44) wordTickNum = 0.3f;
 			else wordTickNum = 0.1f;
-			if(showQueue[showQueue.Count - queueCount] == a44) 
+			if(showQueue[showQueue.Count - queueCount] == a44 && !musicHasPlayed) 
 			{
+				musicHasPlayed = true;
 				Newmusic.Play();
 				Originalmusic.Stop();
 			}

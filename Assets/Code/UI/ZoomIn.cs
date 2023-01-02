@@ -14,8 +14,6 @@ public class ZoomIn : MonoBehaviour
 	void Start()
 	{
 		cam = Camera.main;
-		// async = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-		// async.allowSceneActivation = false;
 	}
 	public void LateUpdate()
 	{
@@ -31,8 +29,6 @@ public class ZoomIn : MonoBehaviour
 		}
 		if(cam.orthographicSize <= 0.0117) 
 		{
-			print("ChangeScene");
-			// async.allowSceneActivation = true;
 			zoomActive = false;
 			GameData.finishSecondPlotInFactory = true;
 			SystemCall.changeScene_Add();

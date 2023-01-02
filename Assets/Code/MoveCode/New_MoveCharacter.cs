@@ -63,10 +63,6 @@ public class New_MoveCharacter : MonoBehaviour
 				changeDis();
 				timeTick = Time.time + 0.3f;
 			}
-			if(GameData.allDone == GameData.countCharacter)
-			{
-				GameData.openMeMove = true;
-			}
 		}
 	}
 	
@@ -157,7 +153,6 @@ public class New_MoveCharacter : MonoBehaviour
 		{
 			collider.size = new Vector3(1, 1, 0);
 			collider.offset = new Vector2(0f, 0f);
-			print("Origional Size");
 		}
 	}
 	

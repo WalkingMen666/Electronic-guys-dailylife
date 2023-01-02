@@ -83,7 +83,6 @@ public class ME : MonoBehaviour
 	{
 		if(GameData.openMeMove) 
 		{
-			leaveClassRoomOrNot();
 			goPlotFive();
 			Movement();
 			OnStartWriter();
@@ -101,6 +100,10 @@ public class ME : MonoBehaviour
 					OnFinish();
 				}
 			}
+		}
+		if(GameData.allDone == GameData.countCharacter && !GameData.openMeMove)
+		{
+			leaveClassRoomOrNot();
 		}
 	}
 	void Movement()
@@ -315,6 +318,10 @@ public class ME : MonoBehaviour
 		{
 			Pos = new Vector3(1, -1.5f, 0);
 			openHint++;
+			if(openHint == 2) 
+			{
+				GameData.openMeMove = true;
+			}
 		}
 		GameObject.Find("我").transform.localPosition = Pos;
 	}
@@ -346,11 +353,11 @@ public class ME : MonoBehaviour
 	{
 		if(SceneManager.GetActiveScene().buildIndex == 5 && !GameData.finishHideAndSeek)
 		{
-			if(this.gameObject.transform.position.x >= -4)
+			if(this.gameObject.transform.position.x >= -6)
 			{
 				GameData.openMeMove = false;
-				SystemCall.changeScene_Add();
-			}	
+				Plot_Five.openDialog = true;
+			}
 		}
 	}
 	void changePlayerPos()
@@ -365,7 +372,11 @@ public class ME : MonoBehaviour
 				thingsToDo.text = "去找一下摯友說話唄!";
 				hintName = "摯";
 				GameData.closeHint = false;
-				if(GameData.exitClassroom) GameData.openMeMove = true;
+				if(GameData.exitClassroom) 
+				{
+					GameData.openMeMove = true;
+					GameData.closeHint = true;
+				}
 				break;
 			case 3:
 				GameData.maxPosX = 8.5f;

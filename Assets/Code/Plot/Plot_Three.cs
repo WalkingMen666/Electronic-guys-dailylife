@@ -25,7 +25,6 @@ public class Plot_Three : MonoBehaviour
 	float meJumpTimer ;				// 我的跳躍計時器
 	Vector3 meJumpPos;				// 我的原位置
 	bool openMeJump = false;		// 開啟我的跳躍
-	bool waitElevator;				// 等電梯
 	Vector3 meJumpSpeed = new Vector3(0, 0.01f, 0);		// 我的跳躍速度
 	Vector3 friendMoveSpeed = new Vector3(0, 0.5f, 0);	// 摯友移動速度
 	Vector3 firendTargetPos = new Vector3(3, -4.5f, 0);	// 摯友移動目標位置
@@ -60,6 +59,7 @@ public class Plot_Three : MonoBehaviour
 		{
 			Destroy(GameObject.Find("摯 (1)").gameObject);
 			GameObject.Find("摯").transform.position = new Vector3(8, 20f, 0);
+			GameData.openMeMove = true;
 		}
 	}
 

@@ -8,7 +8,7 @@ public class PopBox : MonoBehaviour
 	protected AudioSource openAudio;
 	protected AudioSource closeAudio;
 	int Press = 0;
-	public GameObject gameObject;
+	public GameObject obj;
 	Coroutine c = null;
 	public static bool illustrateIsOpen = false;	// 麵包板的說明
 	public static bool sysBoardIsOpen = false;		// 麵包板的系統提示
@@ -26,12 +26,12 @@ public class PopBox : MonoBehaviour
 			{
 				if (Press == 0)
 				{
-					showPop(gameObject);
+					showPop(obj);
 					Press = 1;
 				}
 				else
 				{
-					hidePop(gameObject);
+					hidePop(obj);
 					Press = 0;
 				}
 			}	

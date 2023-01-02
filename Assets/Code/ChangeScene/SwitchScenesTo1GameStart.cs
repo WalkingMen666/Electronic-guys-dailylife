@@ -8,7 +8,6 @@ public class SwitchScenesTo1GameStart : MonoBehaviour
 	protected AudioSource chooseSound;
 	protected AudioSource openAudio;
 	protected AudioSource closeAudio;
-	Coroutine c = null;
 	public GameObject pausePanel;
 	public GameObject gameMode;
 	public GameObject operatePanel;
@@ -129,6 +128,7 @@ public class SwitchScenesTo1GameStart : MonoBehaviour
 	{
 		choice = 1;
 		Press = 1;
+		GameObject.Find("我").gameObject.transform.position = new Vector3(-3, 0.5f, 0);
 		gameMode.SetActive(true);
 		GameObject.Find("Pause").GetComponent<PopBox>().showPop(gameMode);
 	}
@@ -136,6 +136,7 @@ public class SwitchScenesTo1GameStart : MonoBehaviour
 	{
 		choice = 2;
 		Press = 1;
+		GameObject.Find("我").gameObject.transform.position = new Vector3(-3, -1.5f, 0);
 		pausePanel.SetActive(true);
 		GameObject.Find("Pause").GetComponent<PopBox>().showPop(pausePanel);
 	}

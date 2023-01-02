@@ -10,8 +10,7 @@ public class Plot_Seven : MonoBehaviour
 	public TextAsset dialogFile;			// 劇情檔案
 	public TextAsset dialogFile2;			// 劇情檔案2
 	public GameObject hint;					// 提示物件(按下Space繼續)
-	public static bool openMeDialog = false;// 開啟"我"的自白
-	public static bool finishJump = false;	// 完成跳躍特效
+	bool canNotMove = false;				// 不讓"我"在上課的時候動
 	AsyncOperation async;
 	
 	[Header("打字機")]
@@ -45,7 +44,6 @@ public class Plot_Seven : MonoBehaviour
 			GameObject.FindGameObjectWithTag("我").transform.localPosition = GameData.PlayerPos;
 			GameData.openMeMove = false;
 			finishFirstPlot = true;
-			print("1");
 		}
 		else if (GameData.finishSecondPlotInFactory && !GameData.finishAllQue)
 		{
@@ -54,7 +52,6 @@ public class Plot_Seven : MonoBehaviour
 			GameObject.Find("我").transform.localPosition = targetPos;
 			GameData.openMeMove = true;
 			finishFirstPlot = true;
-			print("2");
 		}
 		else if(GameData.finishFirstPlotInFactory && !GameData.finishSecondPlotInFactory)
 		{
@@ -62,7 +59,11 @@ public class Plot_Seven : MonoBehaviour
 			GameObject.FindGameObjectWithTag("我").transform.localPosition = GameData.PlayerPos;
 			GameData.openMeMove = true;
 			finishFirstPlot = true;
-			print("3");
+			charsPerSecond = Mathf.Max(0.1f, charsPerSecond);
+			dialogBoxText.text = "";
+			timer = 0;
+			GetDialogText(dialogFile);
+			changeDialog();
 		}
 		else if (!GameData.teacherFinishDialog)
 		{
@@ -82,7 +83,6 @@ public class Plot_Seven : MonoBehaviour
 			isActive = true;
 			async = SceneManager.LoadSceneAsync(10);
 			async.allowSceneActivation = false;
-			print("4");
 		}
 		if(GameData.finishAllQue)
 		{
@@ -94,14 +94,56 @@ public class Plot_Seven : MonoBehaviour
 			GetDialogText(dialogFile2);
 			GameObject.FindWithTag("師").transform.localPosition = teacherTargetPos;
 			GameObject.Find("我").transform.localPosition = targetPos;
+			GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Stop();
 			changeDialog();
 			dialogBox.SetActive(true);
 			isActive = true;
-			print("5");
 		}
 	}
 	void Update()
 	{
+		if(finishFirstPlot && GameObject.Find("我").transform.localPosition == targetPos && Input.GetKeyDown(KeyCode.E))
+		{
+			GameData.openMeMove = false;
+			GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Stop();
+			finishMeMove = true;
+			if(GameData.finishSecondPlotInFactory) Invoke("zoomin", 0.5f);
+		}
+		if(finishFirstPlot && !finishTeacherMove && finishMeMove && !GameData.finishSecondPlotInFactory)
+		{
+			moveTeacher();
+		}
+		if(finishFirstPlot && finishTeacherMove && finishMeMove)
+		{
+			dialogBoxText.text = "";
+			currentPos = 0;
+			timer = 0;
+			isActive = true;
+			finishMeMove = false;
+			dialogBox.SetActive(true);
+			changeDialog();
+			OnStartWriter();
+		}
+		if(!canNotMove && finishFirstPlot && GameData.finishSecondPlotInFactory && !GameData.finishAllQue && GameObject.Find("我").transform.localPosition == targetPos)
+		{
+			GameData.openMeMove = false;
+			if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)) 
+			{
+				showText = "現在在上課，誰準你上課移動的，給我乖乖坐下!回去繼續做!";
+				currentPos = 0;
+				dialogBoxText.text = "";
+				dialogBox.SetActive(true);
+				canNotMove = true;
+				isActive = true;
+			}
+		}
+		if(canNotMove && isActive) OnStartWriter();
+		if(canNotMove && Input.GetKeyDown(KeyCode.Space))
+		{
+			dialogBox.SetActive(false);
+			hint.SetActive(false);
+			canNotMove = false;
+		}
 		if(!isActive)
 		{
 			if(Input.GetKeyDown(KeyCode.Space))
@@ -134,7 +176,7 @@ public class Plot_Seven : MonoBehaviour
 						OnFinish();
 					}
 				}
-				else
+				else if(GameData.finishAllQue && GameData.finishSecondPlotInFactory)
 				{
 					if(currentDialog != endDialog)
 					{
@@ -158,28 +200,6 @@ public class Plot_Seven : MonoBehaviour
 			}
 		}
 		else if ((GameData.finishSecondPlotInFactory || GameData.finishAllQue || !finishFirstPlot) || (finishFirstPlot && !GameData.finishSecondPlotInFactory)) OnStartWriter();
-		if(finishFirstPlot && GameObject.Find("我").transform.localPosition == targetPos && Input.GetKeyDown(KeyCode.E))
-		{
-			GameData.openMeMove = false;
-			GameObject.Find("粒子特效").GetComponent<ParticleSystem>().Stop();
-			finishMeMove = true;
-			if(GameData.finishSecondPlotInFactory) Invoke("zoomin", 0.5f);
-		}
-		if(finishFirstPlot && !finishTeacherMove && finishMeMove && !GameData.finishSecondPlotInFactory)
-		{
-			moveTeacher();
-		}
-		if(finishFirstPlot && finishTeacherMove && finishMeMove)
-		{
-			dialogBoxText.text = "";
-			currentPos = 0;
-			timer = 0;
-			isActive = true;
-			finishMeMove = false;
-			dialogBox.SetActive(true);
-			changeDialog();
-			OnStartWriter();
-		}
 	}
 	public IEnumerator fadeTest(string s)
 	{	
@@ -219,8 +239,11 @@ public class Plot_Seven : MonoBehaviour
 			{   //判斷計時器時間是否到達
 				timer = 0;
 				currentPos++;
-				if(showText[currentPos - 1] == '，') charsPerSecond = 0.5f;
-				else charsPerSecond = 0.1f;
+				if(!canNotMove)
+				{
+					if(showText[currentPos - 1] == '，') charsPerSecond = 0.5f;
+					else charsPerSecond = 0.1f;	
+				}
 				dialogBoxText.text = showText.Substring(0, currentPos);//刷新文本顯示內容
 				if (currentPos >= showText.Length)
 				{

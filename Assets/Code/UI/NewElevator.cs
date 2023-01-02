@@ -7,7 +7,6 @@ public class NewElevator : MonoBehaviour
 {
 	[Header("淡出特效")]
 	public SceneFader sceneFader;   // 場景淡出入
-	float fadeTime = 1.5f;		    // 轉場時間
 	Color color;				    // 轉場圖片顏色
 	
 	[Header("UI/物件")]

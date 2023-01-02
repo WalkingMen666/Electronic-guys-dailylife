@@ -8,9 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class NewBreadBoard : MonoBehaviour
-{
-	int countTimes = 0;
-	
+{	
 	public static float answer = 0;	// 答案
 	public static string show = "";	// 運算式
 	
@@ -31,7 +29,6 @@ public class NewBreadBoard : MonoBehaviour
 	public GameObject spaceHint;	// 按下Space關閉提示
 	public GameObject resInput;		// 電阻輸入視窗
 	public GameObject showResPut;	// 電阻大小放置顯示物件
-	public Text showResPutText;		// 電阻大小放置顯示文字
 	bool openSysHint;				// 開啟系統提示
 	bool firstSetRes = true;		// 第一次設定電阻
 	
@@ -74,8 +71,8 @@ public class NewBreadBoard : MonoBehaviour
 		}
 		else
 		{
+			GameObject.Find("提示按鈕").gameObject.SetActive(false);
 			resInputText.text = "00";
-			// changeRes();	// 改變電阻
 			for(int i = 0; i < 5; i++)
 			{
 				tb.Add(new Dictionary<List<float>, List<float>>());
@@ -155,6 +152,7 @@ public class NewBreadBoard : MonoBehaviour
 		if(s == "AllClear")
 		{
 			resInputText.text = "00";
+			firstSetRes = true;
 		}
 		else if(openSetResWindows && s == "Confirm")
 		{	
@@ -291,8 +289,9 @@ public class NewBreadBoard : MonoBehaviour
 			}
 			// 新增電阻
 			GameObject clone = Instantiate(ResObject, new Vector3((Posx - 50 * resDis) / 108, Posy / 108, 0), Quaternion.identity, canvas.transform);
-			// GameObject resText = Instantiate(showResPut, new Vector3(((tempResPutX1-50*resDis)+(tempResPutX2-50*resDis))/232.5f, Posy/108, 0), Quaternion.identity, canvas.transform);
-			
+			GameObject resText = Instantiate(showResPut, new Vector3(clone.transform.position.x, clone.transform.position.y + 0.35f, 0), Quaternion.identity, canvas.transform);
+			resText.gameObject.GetComponentInChildren<Text>().text = resSize.ToString()+"Ω";
+			resText.tag = "ResTextClone";
 			Vector3 cloneScale = new Vector3(resScale.x * resDis * 1.5f, resScale.y, 0); // 1.5是大概
 			clone.transform.localScale = cloneScale;
 			clone.tag = "clone";
@@ -393,6 +392,8 @@ public class NewBreadBoard : MonoBehaviour
 		click = 0;
 		var clones = GameObject.FindGameObjectsWithTag("clone");
 		foreach (var clone in clones) Destroy(clone);
+		clones = GameObject.FindGameObjectsWithTag("ResTextClone");
+		foreach (var clone in clones) Destroy(clone);
 		answer = 0;
 		tb = new List<Dictionary<List<float>, List<float>>>();
 		for(int i = 0; i < 5; i++)
@@ -431,7 +432,7 @@ public class NewBreadBoard : MonoBehaviour
 				chooseArrow.transform.localPosition = new Vector3(-450, -510, 0);
 			}
 		}
-		if(GameData.openCalculationMode && Input.GetKeyDown(KeyCode.Return))
+		if(GameData.openCalculationMode && Input.GetKeyDown(KeyCode.LeftControl))
 		{
 			resInput.SetActive(true);
 			openSetResWindows = true;

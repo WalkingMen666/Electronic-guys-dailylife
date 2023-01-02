@@ -10,11 +10,6 @@ public class CameraFollow : MonoBehaviour
 	public Vector2 minPosition; // 可以移動的最小座標
 	public Vector2 maxPosition; // 可以移動的最大座標
 
-	void Start()
-	{
-		
-	}
-	
 	void Update()
 	{
 		if(target != null)

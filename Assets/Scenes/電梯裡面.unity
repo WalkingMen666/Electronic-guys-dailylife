@@ -10366,6 +10366,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1238874857356935170, guid: 711cf92a98e8f424fafa16b4a2f10655, type: 3}
+      propertyPath: obj
+      value: 
+      objectReference: {fileID: 1984405441}
     - target: {fileID: 4402548306437743653, guid: 711cf92a98e8f424fafa16b4a2f10655, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -10489,6 +10493,11 @@ MonoBehaviour:
 --- !u!224 &1984405440 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1238874855912485575, guid: 711cf92a98e8f424fafa16b4a2f10655, type: 3}
+  m_PrefabInstance: {fileID: 1984405437}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1984405441 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1238874855912485574, guid: 711cf92a98e8f424fafa16b4a2f10655, type: 3}
   m_PrefabInstance: {fileID: 1984405437}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1994719698

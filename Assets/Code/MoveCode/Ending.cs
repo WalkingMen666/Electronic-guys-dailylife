@@ -5,9 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class Ending : MonoBehaviour
 {
-	float cameraY;      //根據camera位置判斷
-	bool hit = false;   //童打龍 
-	string characterName = "";	// 角色tag
+	float cameraY;      		//	根據camera位置判斷
+	bool hit = false;   		//	童打龍 
+	string characterName = "";	// 	角色tag
+	float musicTime;			// 	音樂時間
 	
 	void Start()
 	{
@@ -39,6 +40,7 @@ public class Ending : MonoBehaviour
 	}
 	void Update()
 	{
+		musicTime = GameObject.FindGameObjectWithTag("sound").gameObject.GetComponent<AudioSource>().time;
 		if(hit)             //打龍用
 		{
 			DragonOut();
@@ -80,11 +82,11 @@ public class Ending : MonoBehaviour
 		{
 			setLocation();
 		}
-		else if(Time.time >= 87 && cameraY <= -8.7f && GameObject.FindGameObjectWithTag("我") != null && GameObject.FindGameObjectWithTag("我").transform.position.x >= 6.25f)
+		else if(musicTime >= 87 && cameraY <= -8.7f && GameObject.FindGameObjectWithTag("我") != null && GameObject.FindGameObjectWithTag("我").transform.position.x >= 6.25f)
 		{
 			GameObject.FindGameObjectWithTag("我").transform.position -= new Vector3(1, 0, 0) * Time.deltaTime;
 		}
-		else if(Time.time >= 89 && GameObject.FindGameObjectWithTag("我") != null && GameObject.FindGameObjectWithTag("我").transform.localPosition.x <= 6.25f && cameraY <= -8.7f)
+		else if(musicTime >= 89 && GameObject.FindGameObjectWithTag("我") != null && GameObject.FindGameObjectWithTag("我").transform.localPosition.x <= 6.25f && cameraY <= -8.7f)
 		{	
 			Plot_END.openFadeOut = true;
 			Destroy(GameObject.Find("ME").gameObject);

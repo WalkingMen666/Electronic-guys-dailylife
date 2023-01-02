@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class Plot_Eight : MonoBehaviour
 {
-	public GameObject illustrate;		// 說明物件
-	bool openillustrate = false;		// 開啟說明
+	public GameObject illustrate;			// 說明物件
+	public GameObject Caculatorillustrate;	// 說明物件
+	bool openillustrate = false;			// 開啟說明
 	
 	void Start()
 	{
@@ -14,6 +15,11 @@ public class Plot_Eight : MonoBehaviour
 		{
 			illustrate.SetActive(true);
 			openillustrate = true;	
+		}
+		else
+		{
+			Caculatorillustrate.SetActive(true);
+			openillustrate = true;
 		}
 	}
 	void LateUpdate()
@@ -27,13 +33,15 @@ public class Plot_Eight : MonoBehaviour
 	{
 		if(!openillustrate)
 		{
-			illustrate.SetActive(true);
+			if(!GameData.openCalculationMode) illustrate.SetActive(true);
+			else Caculatorillustrate.SetActive(true);
 			openillustrate = true;
 			PopBox.illustrateIsOpen = true;
 		}
 		else
 		{
-			illustrate.SetActive(false);
+			if(!GameData.openCalculationMode) illustrate.SetActive(false);
+			else Caculatorillustrate.SetActive(false);
 			openillustrate = false;
 			PopBox.illustrateIsOpen = false;
 		}

@@ -6,13 +6,6 @@ using UnityEngine.UI;
 
 public class AddScenes : MonoBehaviour
 {
-	/* 初始進入場景 => 0
-	 * 教室 => 1
-	 * 到工廠走廊 => 2
-	 * 走廊 => 3
-	 * 工廠 => 4
-	 * 電阻區 => 5
-	 */
 	public static bool goToNextScene = false;
 	
 	void OnTriggerEnter2D(Collider2D other)
@@ -50,7 +43,6 @@ public class AddScenes : MonoBehaviour
 				}
 				break;
 			case 5:
-				// 之後要把ME裡的changePlayerPos case7 的 GameData.PlayerPos = new Vector3(-8, 0, 0); 刪掉
 				GameData.PlayerPos = new Vector3(-8f, Pos.y, 0);
 				break;
 			case 6:

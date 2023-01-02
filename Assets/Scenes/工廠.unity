@@ -4113,6 +4113,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6625606323220527255, guid: 3f444b195598f4241845a5395ddfa49d, type: 3}
+      propertyPath: obj
+      value: 
+      objectReference: {fileID: 708160158}
     - target: {fileID: 6625606323273370859, guid: 3f444b195598f4241845a5395ddfa49d, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -4265,6 +4269,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &708160158 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6625606322850875987, guid: 3f444b195598f4241845a5395ddfa49d, type: 3}
+  m_PrefabInstance: {fileID: 708160155}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &708160159 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 523042743, guid: 3f444b195598f4241845a5395ddfa49d, type: 3}

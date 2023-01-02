@@ -14,7 +14,7 @@ public class Move_For_PlotSix : MonoBehaviour
 	int jumpCount = 2;						// 跳躍次數
 	public static bool openJumpEffect = false;		// 開啟"摯"與"童"跳跳動畫
 	Vector3 jumpSpeed = new Vector3(0, 0.01f, 0);	// 跳躍速度
-	bool jumping = false;					// 正在跳躍
+	bool jumping = false;							// 正在跳躍
 	
 	void Start()
 	{

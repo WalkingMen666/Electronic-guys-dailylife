@@ -49,6 +49,7 @@ public class Plot_Two : MonoBehaviour
 	public GameObject a36;  //!
 	public GameObject a37;  //師
 	public GameObject a38;  //：
+	public GameObject moveHint;	// 移動提示
 	
 	float wordGap_X = 0.5f;
 	float wordGap_Y = -0.5f;
@@ -60,8 +61,8 @@ public class Plot_Two : MonoBehaviour
 	int endDialog;                      // 結束對話編號
 	string pSpace = "/p";               // 按下空白鍵繼續
 	bool pGoDown = true;                // 偵測到/p
-	bool monologueING = false;			// 正在獨白
 	bool afterMonologue = false;		// 獨白完了
+	bool openMoveHint = false;			// 開啟移動提示
 	Vector3 startPos = new Vector3(-6.5f, 2f, 0);
 	List<GameObject> showQueue = new List<GameObject>();    // 對話物件list
 	List<string> dialogQueue = new List<string>();          // 對話文字list
@@ -77,6 +78,7 @@ public class Plot_Two : MonoBehaviour
 	
 	void Start()
 	{
+		moveHint.SetActive(false);
 		if(!GameData.exitClassroom)
 		{
 			GameData.openMeMove = false;
@@ -87,14 +89,13 @@ public class Plot_Two : MonoBehaviour
 			charsPerSecond = Mathf.Max(0.1f, charsPerSecond);
 			dialogBoxText.text = "";	
 		}
-		else changeCharacterPos();
+		else destroyObj();
 	}
 	
 	void Update()
 	{
 		if(!GameData.openMeMove &&　!GameData.exitClassroom) // 主角可以移動後就停止執行此程式
 		{
-			if(dialogCount == endDialog + 1) GameData.openMeMove = true;
 			if(Time.time >= wordTick && openDialog)
 			{
 				showdialog();
@@ -138,8 +139,20 @@ public class Plot_Two : MonoBehaviour
 				dialogBoxText.text = "我擦掉嘴角的口水，還在回憶剛剛那充滿色彩的奇幻世界...不過還是先去找我的摯友一起去實習工廠吧!";
 			}
 		}
+		if(GameData.openMeMove && !GameData.exitClassroom)
+		{
+			if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+			{
+				moveHint.SetActive(false);
+			}
+			else if(!openMoveHint)
+			{
+				moveHint.SetActive(true);
+				openMoveHint = true;
+			}
+		}
 	}
-	void changeCharacterPos()
+	void destroyObj()
 	{
 		Destroy(GameObject.Find("學"));
 		Destroy(GameObject.Find("學 (1)"));

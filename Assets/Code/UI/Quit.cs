@@ -21,7 +21,6 @@ public class Quit : MonoBehaviour
 		else
 		{
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-			Debug.Log("已回到前一個場景");
 			GameData.PlayerPos = new Vector3(-4.5f, 1f, 0);	
 		}
 	}

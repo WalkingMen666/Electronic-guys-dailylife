@@ -186,7 +186,7 @@ public class Electronic : MonoBehaviour
 			for(int j = 0; j < 15; j++) origin.Add(judge[j]);	//origin list for map
 			list[i*3] = total;
 			list[i*3+2] = list[i*3+14];
-			for(int j = i*3+3; j < i*3+15l; j++) list.RemoveAt(i*3+3);
+			for(int j = i*3+3; j < i*3+15; j++) list.RemoveAt(i*3+3);
 			for(int j = 0; j < 3; j++) end.Add(list[i*3+j]);	 //end list for map
 			//tb process
 			for(int j = 0; j < 5; j++)
