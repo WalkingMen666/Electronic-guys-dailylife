@@ -18,12 +18,15 @@ public class Plot_Anime : MonoBehaviour
 	int currentDialog = 0;				// 當前劇情編號
 	int endDialog = 0;					// 結束劇情編號
 	List<string> dialogQueue = new List<string>();	// 劇情文字佇列
+	public AudioSource music;			// 重點音樂
+	public AudioSource music0;			// 前置BGM
 	
 	[Header("文檔")]
 	public TextAsset dialogFile;		// 劇情文檔	
 	
 	void Start()
 	{
+		GameObject.FindGameObjectWithTag("sound").GetComponent<AudioSource>().Pause();
 		timer = 0;
 		isActive = true;
 		charsPerSecond = Mathf.Max(0.1f, charsPerSecond);
@@ -31,6 +34,10 @@ public class Plot_Anime : MonoBehaviour
 		dialogBox.SetActive(true);
 		GetDialogText(dialogFile);
 		changeDialog();
+		music0 = GameObject.Find("幡").GetComponent<AudioSource>();
+		music0.Play();
+		StartCoroutine(FadeMusic(music0, 10f, 1));
+		music = GetComponent<AudioSource>();
 	}
 	
 	void Update()
@@ -95,6 +102,13 @@ public class Plot_Anime : MonoBehaviour
 			wait();
 			isActive = false;
 		}
+		if(currentDialog == 61)
+		{
+			StartCoroutine(FadeMusic(music0, 5f, 0));
+			music.volume = 0;
+			music.Play();
+			StartCoroutine(FadeMusic(music, 10f, 1));
+		}
 	}
 	void OnFinish()
 	{
@@ -104,10 +118,24 @@ public class Plot_Anime : MonoBehaviour
 		showText = "";
 		hint.SetActive(false);
 		dialogBox.SetActive(false);
+		GameData.PlayerPos = new Vector3(0, 22.5f, 0);
+		GameObject.FindGameObjectWithTag("sound").GetComponent<AudioSource>().Play();
 		SceneManager.LoadScene(3);
 	}
 	void wait()
 	{
 		hint.SetActive(true);
+	}
+	public static IEnumerator FadeMusic(AudioSource audioSource, float duration, float targetVolume)
+	{
+		float currentTime = 0;
+		float start = audioSource.volume;
+		while (currentTime < duration)
+		{
+			currentTime += Time.deltaTime;
+			audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+			yield return null;
+		}
+		yield break;
 	}
 }

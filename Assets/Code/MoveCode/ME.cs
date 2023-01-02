@@ -101,7 +101,7 @@ public class ME : MonoBehaviour
 				}
 			}
 		}
-		if(GameData.allDone == GameData.countCharacter && !GameData.openMeMove)
+		if(GameData.allDone == GameData.countCharacter && Plot_Two.pressSpace)
 		{
 			leaveClassRoomOrNot();
 		}
@@ -386,6 +386,7 @@ public class ME : MonoBehaviour
 				hintName = "摯";
 				thingsToDo.text = "去搭電梯吧~";
 				GameData.closeHint = false;
+				if(GameData.Plot2_CloseDialog) GameData.openMeMove = true;
 				break;
 			case 4:
 				hintName = "";
@@ -426,7 +427,8 @@ public class ME : MonoBehaviour
 				GameData.closeHint = true;
 				hintName = "";
 				thingsToDo.text = "到座位上準備考試吧";
-				if (!GameData.finishSecondPlotInFactory) GameData.PlayerPos = new Vector3(-6.5f, 3.5f, 0);
+				if (!GameData.finishFirstPlotInFactory) GameData.PlayerPos = new Vector3(-6.5f, 3.5f, 0);
+				else if(GameData.finishFirstPlotInFactory) GameData.openMeMove = true;
 				else if(GameData.finishAllQue)
 				{
 					GameData.openMeMove = false;

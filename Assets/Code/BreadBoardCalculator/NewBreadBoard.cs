@@ -129,18 +129,22 @@ public class NewBreadBoard : MonoBehaviour
 		switch(buttonName)
 		{
 			case "Res":
+				if(chooseRes != 1) click = 0;
 				chooseRes = 1;
 				chooseArrow.transform.localPosition = new Vector3(-450, -510, 0);
 				break;
 			case "Res (1)":
+				if(chooseRes != 2) click = 0;
 				chooseRes = 2;
 				chooseArrow.transform.localPosition = new Vector3(-150, -510, 0);
 				break;
 			case "Res (2)":
+				if(chooseRes != 3) click = 0;
 				chooseRes = 3;
 				chooseArrow.transform.localPosition = new Vector3(150, -510, 0);
 				break;
 			case "Res (3)":
+				if(chooseRes != 4) click = 0;
 				chooseRes = 4;
 				chooseArrow.transform.localPosition = new Vector3(450, -510, 0);
 				break;

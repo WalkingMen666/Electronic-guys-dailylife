@@ -11,6 +11,7 @@ public class HideAndSeek : MonoBehaviour
 	public GameObject tcy;		// "童"物件
 	public GameObject ray;		// "瑞"物件
 	public GameObject firend;	// "摯"物件
+	public GameObject teacher;	// "教"物件
 	
 	[Header("UI")]
 	public GameObject gameIntroduce;						// 遊戲說明
@@ -76,7 +77,7 @@ public class HideAndSeek : MonoBehaviour
 				else sysHintText.text = "恭喜完成第"+GameData.level.ToString()+"關卡";
 				pressToContinue.SetActive(true);
 				openPressToContinue = true;
-				GameObject.FindGameObjectWithTag("教官").transform.localPosition = new Vector3(-5.5f, -3, 0);
+				teacher.transform.localPosition = new Vector3(-5.5f, -3, 0);
 			}
 			if(openPressToContinue)
 			{
@@ -168,7 +169,7 @@ public class HideAndSeek : MonoBehaviour
 		GameData.level = 1;
 		GameData.usingName = "我";
 		sysHintText.text = "哇~!被教官看到囉~重新開始吧!";
-		GameObject.FindGameObjectWithTag("教官").transform.localPosition = new Vector3(-5.5f, -3, 0);
+		teacher.transform.localPosition = new Vector3(-5.5f, -3, 0);
 		sysHint.SetActive(true);
 		pressToContinue.SetActive(true);
 		openPressToContinue = true;
@@ -187,7 +188,7 @@ public class HideAndSeek : MonoBehaviour
 		}
 		if(currentPos.x > startDetectLine + 0.5f)
 		{
-			GameObject.FindGameObjectWithTag("教官").transform.localPosition = new Vector3(currentPos.x, -3, 0);
+			teacher.transform.localPosition = new Vector3(currentPos.x, -3, 0);
 		}
 		if(currentPos.x < -8.5f)
 		{

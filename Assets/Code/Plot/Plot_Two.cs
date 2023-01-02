@@ -66,6 +66,7 @@ public class Plot_Two : MonoBehaviour
 	Vector3 startPos = new Vector3(-6.5f, 2f, 0);
 	List<GameObject> showQueue = new List<GameObject>();    // 對話物件list
 	List<string> dialogQueue = new List<string>();          // 對話文字list
+	public static bool pressSpace = false;					// 按下Space才能移動
 	
 	[Header("打字機")]
 	public GameObject dialogBox; // 對話框(透明圖片背景)
@@ -216,6 +217,7 @@ public class Plot_Two : MonoBehaviour
 		hint.SetActive(false);
 		dialogBox.SetActive(false);
 		afterMonologue = false;
+		pressSpace = true;
 	}
 	void GetDialogText(TextAsset file)
 	{

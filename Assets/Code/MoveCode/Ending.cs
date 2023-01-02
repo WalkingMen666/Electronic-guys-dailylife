@@ -92,7 +92,6 @@ public class Ending : MonoBehaviour
 			Destroy(GameObject.Find("ME").gameObject);
 		}
 	}
-	
 	void setLocation()              //位置設定
 	{
 		if(cameraY > 15)

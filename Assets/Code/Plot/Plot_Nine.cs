@@ -1276,8 +1276,10 @@ public class Plot_Nine : MonoBehaviour
 			if(showQueue[showQueue.Count - queueCount] == a44 && !musicHasPlayed) 
 			{
 				musicHasPlayed = true;
+				StartCoroutine(FadeMusic(Originalmusic, 5f, 0));
+				Newmusic.volume = 0;
 				Newmusic.Play();
-				Originalmusic.Stop();
+				StartCoroutine(FadeMusic(Newmusic, 5f, 1));
 			}
 			clone.tag = "clone";
 			startPos.x += wordGap_X;
@@ -1305,5 +1307,17 @@ public class Plot_Nine : MonoBehaviour
 	void wait()
 	{
 		hint.text = "按下Space繼續";
+	}
+	public static IEnumerator FadeMusic(AudioSource audioSource, float duration, float targetVolume)
+	{
+		float currentTime = 0;
+		float start = audioSource.volume;
+		while (currentTime < duration)
+		{
+			currentTime += Time.deltaTime;
+			audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+			yield return null;
+		}
+		yield break;
 	}
 }

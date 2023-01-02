@@ -34,5 +34,6 @@ public class SceneFader : MonoBehaviour
 			canvasGroup.alpha -= Time.deltaTime / time;
 			yield return null;
 		}
+		if(canvasGroup.alpha == 0) GameObject.Find("Fade Canvas(Clone)").gameObject.SetActive(false);
 	}
 }

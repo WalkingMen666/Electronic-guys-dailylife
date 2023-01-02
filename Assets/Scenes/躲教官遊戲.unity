@@ -712,7 +712,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 9c393780fe9197f40a66564dd8f1d188, type: 3}
     - target: {fileID: 5349971332211826015, guid: fc9fb5e6313a41746bc1220a965789c7, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5349971332211826015, guid: fc9fb5e6313a41746bc1220a965789c7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1742,7 +1742,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &283311460
 PrefabInstance:
@@ -2755,6 +2755,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 238b3e37bdecfae4784679f29cea2957, type: 3}
+--- !u!1001 &454448991
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1763996994690623646, guid: f0ed239bebd8d2e41b6d12e2f556f263, type: 3}
+      propertyPath: m_Name
+      value: "\u5B98"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5403793313389148098, guid: f0ed239bebd8d2e41b6d12e2f556f263, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5403793313389148098, guid: f0ed239bebd8d2e41b6d12e2f556f263, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5403793313389148098, guid: f0ed239bebd8d2e41b6d12e2f556f263, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5403793313389148098, guid: f0ed239bebd8d2e41b6d12e2f556f263, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5403793313389148098, guid: f0ed239bebd8d2e41b6d12e2f556f263, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5403793313389148098, guid: f0ed239bebd8d2e41b6d12e2f556f263, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5403793313389148098, guid: f0ed239bebd8d2e41b6d12e2f556f263, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5403793313389148098, guid: f0ed239bebd8d2e41b6d12e2f556f263, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5403793313389148098, guid: f0ed239bebd8d2e41b6d12e2f556f263, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5403793313389148098, guid: f0ed239bebd8d2e41b6d12e2f556f263, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5403793313389148098, guid: f0ed239bebd8d2e41b6d12e2f556f263, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f0ed239bebd8d2e41b6d12e2f556f263, type: 3}
 --- !u!1001 &464747412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9066,7 +9123,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2101584296
 MonoBehaviour:
@@ -9085,6 +9142,7 @@ MonoBehaviour:
   tcy: {fileID: 5725098920863343914, guid: 07f8cb548e3d7a446b6b89f16e8f0b44, type: 3}
   ray: {fileID: 6134502722613055036, guid: 3938a01868341b743b7f9d30ee9b4a89, type: 3}
   firend: {fileID: 5192462991523234931, guid: 136acb749c9bf2541ae2da2b79f627a7, type: 3}
+  teacher: {fileID: 2089464937}
   gameIntroduce: {fileID: 851527755}
   sysHint: {fileID: 932784157}
   pressToContinue: {fileID: 443491787}
