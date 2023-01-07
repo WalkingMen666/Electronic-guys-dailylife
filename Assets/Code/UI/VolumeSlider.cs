@@ -61,7 +61,7 @@ public class VolumeSlider : MonoBehaviour
 				{
 					if(GameObject.FindGameObjectWithTag("sound") != null) Destroy(GameObject.FindGameObjectWithTag("sound").gameObject);
 					musicInstant = GameObject.FindGameObjectWithTag("music");
-					musicInstant.tag = "sound";	
+					musicInstant.tag = "sound";
 				}
 				else
 				{

@@ -429,12 +429,13 @@ public class ME : MonoBehaviour
 				thingsToDo.text = "到座位上準備考試吧";
 				if (!GameData.finishFirstPlotInFactory) GameData.PlayerPos = new Vector3(-6.5f, 3.5f, 0);
 				else if(GameData.finishFirstPlotInFactory) GameData.openMeMove = true;
-				else if(GameData.finishAllQue)
+				else GameData.openMeMove = false;
+				if(GameData.finishAllQue)
 				{
 					GameData.openMeMove = false;
 					GameData.PlayerPos = new Vector3(-4.5f, 1f, 0);
 				}
-				else GameData.openMeMove = false;
+				
 				break;
 			default:
 				GameData.closeHint = true;

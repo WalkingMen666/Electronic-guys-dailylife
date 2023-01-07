@@ -421,7 +421,7 @@ public class NewBreadBoard : MonoBehaviour
 				chooseRes = 4;
 				chooseArrow.transform.localPosition = new Vector3(450, -510, 0);
 			}
-			
+			click = 0;
 		}
 		if (Input.GetKeyDown(KeyCode.RightArrow))
 		{
@@ -435,12 +435,14 @@ public class NewBreadBoard : MonoBehaviour
 				chooseRes = 1;
 				chooseArrow.transform.localPosition = new Vector3(-450, -510, 0);
 			}
+			click = 0;
 		}
 		if(GameData.openCalculationMode && Input.GetKeyDown(KeyCode.LeftControl))
 		{
 			resInput.SetActive(true);
 			openSetResWindows = true;
 			firstSetRes = true;
+			click = 0;
 		}
 	}
 	// 改變可使用的電阻

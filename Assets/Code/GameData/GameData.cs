@@ -99,5 +99,4 @@ static class GameData
 		finishHideAndSeek = GameData_Backup.finishHideAndSeek;
 		finishFirstPlotInFactory = GameData_Backup.finishFirstPlotInFactory;
 	}
-
 }
