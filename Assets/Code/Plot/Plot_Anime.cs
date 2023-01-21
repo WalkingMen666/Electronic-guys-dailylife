@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class Plot_Anime : MonoBehaviour
 {
 	[Header("UI物件")]
+	public GameObject bigTeacher;		// 大老師物件
+	public GameObject snow;				// 雪乃物件
 	public GameObject dialogBox;		// 對話框(透明圖片背景)
 	public Text dialogBoxText;			// 顯示文字的地方
 	public GameObject hint;				// 提示物件(按下Space繼續)
@@ -17,6 +19,10 @@ public class Plot_Anime : MonoBehaviour
 	private int currentPos = 0;			// 當前打字位置
 	int currentDialog = 0;				// 當前劇情編號
 	int endDialog = 0;					// 結束劇情編號
+	float delayTimer = 0.5f;			// 劇情播放延遲時間
+	float plotTimer = 0;				// 劇情計時器
+	bool end = false;					// 結束劇情
+	bool openMove = false;				// 開啟貼貼移動
 	List<string> dialogQueue = new List<string>();	// 劇情文字佇列
 	public AudioSource music;			// 重點音樂
 	public AudioSource music0;			// 前置BGM
@@ -45,23 +51,56 @@ public class Plot_Anime : MonoBehaviour
 		if(isActive) OnStartWriter();
 		else
 		{
-			if(Input.GetKeyDown(KeyCode.Space))
+			plotTimer += Time.deltaTime;
+			if(plotTimer >= delayTimer)
 			{
-				if(currentDialog != endDialog)
+				plotTimer = 0;
+				delayDisplay();
+			}
+			if(end && Input.GetKeyDown(KeyCode.Space))
+			{
+				OnFinish();
+			}
+		}
+		if(currentDialog >= 62 && !openMove)
+		{
+			if(bigTeacher.transform.localPosition.x <= 0.2 && snow.transform.localPosition.x >= -0.2)
+			{
+				openMove = true;
+			}
+			else
+			{
+				if(snow.transform.localPosition.x <= -0.2)
 				{
-					dialogBoxText.text = "";
-					currentPos = 0;
-					timer = 0;
-					changeDialog();
-					isActive = true;
-					hint.SetActive(false);
-					OnStartWriter();
+					snow.transform.localPosition += new Vector3(0.2f, 0, 0)*Time.deltaTime;
 				}
-				else OnFinish();
+				if(bigTeacher.transform.localPosition.x >= 0.2)
+				{
+					bigTeacher.transform.localPosition -= new Vector3(0.2f, 0, 0)*Time.deltaTime;
+				}
 			}
 		}
 	}
 	
+	void delayDisplay()
+	{
+		if(currentDialog != endDialog)
+		{
+			dialogBoxText.text = "";
+			currentPos = 0;
+			timer = 0;
+			changeDialog();
+			isActive = true;
+			hint.SetActive(false);
+			OnStartWriter();
+		}
+		else if(!end && currentDialog == endDialog)
+		{
+			end = true;
+			isActive = false;
+			wait();
+		}
+	}
 	void OnStartWriter()
 	{
 		if (isActive)
@@ -75,7 +114,7 @@ public class Plot_Anime : MonoBehaviour
 				if (currentPos >= showText.Length)
 				{
 					isActive = false;
-					wait();
+					// wait();
 					return;
 				}
 			}
@@ -99,7 +138,7 @@ public class Plot_Anime : MonoBehaviour
 		}
 		else
 		{
-			wait();
+			// wait();
 			isActive = false;
 		}
 		if(currentDialog == 61)

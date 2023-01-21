@@ -92,7 +92,7 @@ public class ME : MonoBehaviour
 			}
 			if (isActive || timer == 0)
 			{
-				if(this.gameObject.transform.position != GameData.textPlayerPos)
+				if(this.gameObject.transform.position != GameData.textPlayerPos || Input.GetKeyDown(KeyCode.Space))
 				{
 					isActive = false;
 					dialogBox.SetActive(false);

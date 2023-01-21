@@ -687,6 +687,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f070e6d4844a36499dc9ad077609708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bigTeacher: {fileID: 203525185}
+  snow: {fileID: 2020045985}
   dialogBox: {fileID: 698804956}
   dialogBoxText: {fileID: 499817457}
   hint: {fileID: 2015439664}
@@ -3558,6 +3560,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d9174f2b6cc58548ba6308e585caa0a, type: 3}
+--- !u!1 &2020045985 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 753767709792796499, guid: 9550bd29bef9ddf44a7318002f27b45f, type: 3}
+  m_PrefabInstance: {fileID: 1179277200}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2035717025
 PrefabInstance:
   m_ObjectHideFlags: 0
