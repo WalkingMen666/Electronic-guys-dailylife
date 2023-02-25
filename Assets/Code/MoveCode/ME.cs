@@ -463,9 +463,6 @@ public class ME : MonoBehaviour
 			case "椅":
 				showText = "一張椅子，又晃又硬，坐起來不怎麼舒服。";
 				break;
-			case "學":
-				showText = "欸欸欸，誰有電梯卡阿?  Ray有？  等我等我！！";
-				break;
 			case "牆":
 				showText = "白白淨淨的，多虧了那幾位愛乾淨的（強迫症的）同學。";
 				break;
@@ -542,21 +539,6 @@ public class ME : MonoBehaviour
 			case "晶":
 				showText = "BJT FET NPN PNP 各式各樣的電晶體。";
 				break;
-			case "學1":
-				showText = "我其實姓顏，偷偷跟你說......有一個好看的學妹在化一甲！";
-				break;
-			case "學2":
-				showText = "ㄟㄟ晚點告訴我你剛剛做了甚麼夢，到底要怎麼樣才可以踢到別人";
-				break;
-			case "學3":
-				showText = "欸你知道這題怎麼解嗎......你都不會那我也不用會了啦哈哈";
-				break;	
-			case "學4":
-				showText = "跟你說個好消息，聽說隔壁班那個很正的好像對你有興趣(¬‿¬ )";
-				break;
-			case "學5":
-				showText = "走開啦~學霸!上課睡覺成績還那麼好，勸你走路注意一點，小心半路遇到教官";
-				break;
 			case "電":
 				showText = "滋~滋~滋~";
 				break;
@@ -601,6 +583,93 @@ public class ME : MonoBehaviour
 				break;
 			case "瑞":
 				showText = "嗯?你問我的特色是什麼?我特色阿!";
+				break;
+			case "學":
+				showText = "欸欸欸，誰有電梯卡阿?  Ray有？  等我等我！！";
+				break;
+			case "學1":
+				showText = "我其實姓顏，偷偷跟你說......有一個好看的學妹在化一甲！";
+				break;
+			case "學2":
+				showText = "ㄟㄟ晚點告訴我你剛剛做了甚麼夢，到底要怎麼樣才可以踢到別人";
+				break;
+			case "學3":
+				showText = "欸你知道這題怎麼解嗎......你都不會那我也不用會了啦哈哈";
+				break;	
+			case "學4":
+				showText = "跟你說個好消息，聽說隔壁班那個很正的好像對你有興趣(¬‿¬ )";
+				break;
+			case "學5":
+				showText = "走開啦~學霸!上課睡覺成績還那麼好，勸你走路注意一點，小心半路遇到教官";
+				break;
+			case "學6":
+				showText = "早安!";
+				break;
+			case "學7":
+				showText = "午安!";
+				break;
+			case "學8":
+				showText = "(閒言閒語)";
+				break;
+			case "學9":
+				showText = "昨天卡K比賽第一的同學真的超強的ㄟ";
+				break;
+			case "學10":
+				showText = "(低頭滑手機)";
+				break;
+			case "學11":
+				showText = "欸嗨!學長!";
+				break;
+			case "學12":
+				showText = "嗚嗚嗚被記假輔了嗚嗚嗚";
+				break;
+			case "學13":
+				showText = "你們專題做完了嗎?我們快來不及了(;´༎ຶД༎ຶ`)";
+				break;
+			case "學14":
+				showText = "你們明天要去看熱舞社的表演嗎?要不要一起去?";
+				break;
+			case "學15":
+				showText = "Sin60∘+  Cos30∘是多少阿";
+				break;
+			case "學16":
+				showText = "Yo! Battle!";
+				break;
+			case "學17":
+				showText = "♪這次就~讓我為你唱情歌~♪";
+				break;
+			case "學18":
+				showText = "為什麼舅舅的老婆不叫舅婆";
+				break;
+			case "學19":
+				showText = "咖啡某方面來說是不是算豆漿的一種?";
+				break;
+			case "學20":
+				showText = "我覺得章魚其實就是失掉的蜘蛛";
+				break;
+			case "學21":
+				showText = "你…你幹嘛(害羞)";
+				break;
+			case "學22":
+				showText = "好油喔peko(歪頭燦笑)";
+				break;
+			case "學23":
+				showText = "太開心了吧!這次模考有前100ㄟ";
+				break;
+			case "學24":
+				showText = "當你在玩遊戲的時候，最需要的就是Alt+F4(請勿嘗試)";
+				break;
+			case "學25":
+				showText = "你會打PLC的程式嗎?下禮拜就要丙檢了…";
+				break;
+			case "學26":
+				showText = "啊!我忘記帶工具包了!等一下實習可能會用到三用電表怎麼辦";
+				break;
+			case "學27":
+				showText = "今天晚餐要吃啥?要不要吃哈密瓜?";
+				break;
+			case "學28":
+				showText = "靠杯啊!忘記鎖門了!算我拜託你趕快出去~";
 				break;
 		}
 		if(GameData.textTouchName != "Untagged")

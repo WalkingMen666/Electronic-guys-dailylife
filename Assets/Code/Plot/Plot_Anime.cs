@@ -29,7 +29,6 @@ public class Plot_Anime : MonoBehaviour
 	
 	[Header("文檔")]
 	public TextAsset dialogFile;		// 劇情文檔	
-	
 	void Start()
 	{
 		GameObject.FindGameObjectWithTag("sound").GetComponent<AudioSource>().Pause();
@@ -45,7 +44,6 @@ public class Plot_Anime : MonoBehaviour
 		StartCoroutine(FadeMusic(music0, 10f, 1));
 		music = GetComponent<AudioSource>();
 	}
-	
 	void Update()
 	{
 		if(isActive) OnStartWriter();
