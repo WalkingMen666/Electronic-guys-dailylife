@@ -313,18 +313,17 @@ public class NewBreadBoard : MonoBehaviour
 	// 檢查放置的電阻是否達到要求數量
 	void checkOutOfLimit()
 	{
-		int check = 0;
+		achieveResLimit = true;
 		if(resHadPut.Count != 0)
 		{
 			for(int i = 0; i < resNeedToPut.Count; i++)
 			{
-				if(resNeedToPut[resArray[i]] == resHadPut[resArray[i]])
+				if(!resHadPut.ContainsKey(resArray[i]) || resNeedToPut[resArray[i]] != resHadPut[resArray[i]])
 				{
-					check++;
-				}
+					achieveResLimit = false;
+					break;
+				}	
 			}
-			if(check != resNeedToPut.Count) achieveResLimit = false;
-			else achieveResLimit = true;
 		}
 	}
 	// 當玩家按下"提交"後會執行
